@@ -3,7 +3,7 @@ import CardHeader from "./CardHeader";
 import CardImage from "./CardImage";
 import CardInfo from "./CardInfo";
 import CardFooter from "./CardFooter";
-import CardProfile from "./CardProfile";
+
 import { colors } from "@/utils/colors";
 export default function Card() {
   return (
@@ -11,7 +11,7 @@ export default function Card() {
       <CardHeader />
       <CardImage />
       <CardInfo />
-      <CardProfile />
+
       <CardFooter />
     </div>
   );

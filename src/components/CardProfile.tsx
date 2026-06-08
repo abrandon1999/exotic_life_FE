@@ -20,5 +20,4 @@ const profilePicture: CSSProperties = {
   height: PIC_SIZE,
   backgroundColor: "#fff",
   borderRadius: "50%",
-  marginRight: "10px",
 };
