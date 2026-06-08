@@ -20,5 +20,4 @@ const iconContainer: CSSProperties = {
   display: "flex",
   justifyContent: "space-evenly",
   alignItems: "center",
-  width: "200px",
 };

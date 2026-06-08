@@ -11,7 +11,6 @@ export default function CardFooter() {
 }
 
 const footerStyle: CSSProperties = {
-  display: "flex",
-  justifyContent: "flex-start",
-  alignItems: "center",
+  display: "grid",
+  gridTemplateColumns: "3fr 1fr",
 };

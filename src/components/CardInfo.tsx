@@ -15,17 +15,19 @@ export default function CardInfo() {
     </div>
   );
 }
+const MARGIN_BOTTOM = "10px";
 const infoContainer: CSSProperties = {
   marginBottom: "20px",
 };
 const titleStyle: CSSProperties = {
   fontSize: "1.3rem",
   fontWeight: 600,
-  marginBottom: "10px",
+  marginBottom: MARGIN_BOTTOM,
   color: colors.textMain,
 };
 const descriptionStyle: CSSProperties = {
   color: colors.textSecondary,
+  marginBottom: MARGIN_BOTTOM,
 };
 const buttonContainer: CSSProperties = {
   width: "120px",
@@ -36,6 +38,7 @@ const buttonContainer: CSSProperties = {
   backgroundColor: colors.primaryAccent,
   borderRadius: "5px",
   cursor: "pointer",
+  marginBottom: MARGIN_BOTTOM,
 };
 const buttonText: CSSProperties = {
   fontSize: "0.75rem",
