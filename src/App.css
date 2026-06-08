@@ -1,0 +1,8 @@
+body {
+  background-color: #0f172a;
+  color: #fff;
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+}
