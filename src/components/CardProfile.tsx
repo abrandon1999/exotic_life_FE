@@ -8,15 +8,16 @@ export default function CardProfile() {
     </div>
   );
 }
-
+const PIC_SIZE = "50px";
 const profileContainer: CSSProperties = {
   display: "flex",
   justifyContent: "flex-start",
   alignItems: "center",
+  marginBottom: "20px",
 };
 const profilePicture: CSSProperties = {
-  width: "40px",
-  height: "40px",
+  width: PIC_SIZE,
+  height: PIC_SIZE,
   backgroundColor: "#fff",
   borderRadius: "50%",
   marginRight: "10px",

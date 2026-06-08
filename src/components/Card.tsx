@@ -4,6 +4,7 @@ import CardImage from "./CardImage";
 import CardInfo from "./CardInfo";
 import CardFooter from "./CardFooter";
 import CardProfile from "./CardProfile";
+import { colors } from "@/utils/colors";
 export default function Card() {
   return (
     <div style={container}>
@@ -17,6 +18,6 @@ export default function Card() {
 }
 
 const container: CSSProperties = {
-  backgroundColor: "#1E293B",
+  backgroundColor: colors.primary,
   padding: "20px",
 };

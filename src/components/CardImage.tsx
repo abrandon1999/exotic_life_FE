@@ -16,4 +16,5 @@ const imageStyle: CSSProperties = {
   width: "100%",
   height: "300px",
   marginBottom: "20px",
+  borderRadius: "5px",
 };
