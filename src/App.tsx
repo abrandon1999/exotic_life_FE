@@ -1,10 +1,15 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
 
+import { routeTree } from "./routeTree.gen";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
+
+const router = createRouter({ routeTree });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 export default function App() {
-  return (
-    <div className="App">
-      <Navbar />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }

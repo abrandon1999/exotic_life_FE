@@ -1,11 +1,17 @@
 import type { CSSProperties } from "react";
-
+import { Link } from "@tanstack/react-router";
 export default function Navbar() {
   return (
     <div style={NavbarStyle}>
-      <span style={NavbarTextStyle}>Home</span>
-      <span style={NavbarTextStyle}>About</span>
-      <span style={NavbarTextStyle}>Login</span>
+      <Link to="/" style={NavbarTextStyle}>
+        Home
+      </Link>
+      <Link to="/about" style={NavbarTextStyle}>
+        About
+      </Link>
+      <Link to="/login" style={NavbarTextStyle}>
+        Login
+      </Link>
     </div>
   );
 }
