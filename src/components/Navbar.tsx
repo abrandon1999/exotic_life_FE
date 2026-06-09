@@ -9,6 +9,7 @@ export default function Navbar() {
       <Link to="/about" style={NavbarTextStyle}>
         About
       </Link>
+      <Link to="/profile">Profile</Link>
       <Link to="/login" style={NavbarTextStyle}>
         Login
       </Link>
