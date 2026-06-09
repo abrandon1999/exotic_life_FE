@@ -1,62 +1,55 @@
 import type { CSSProperties } from "react";
 import GenderRadio from "./GenderRadio";
+import { FaRegUserCircle } from "react-icons/fa";
 export default function ProfileContent() {
   return (
     <div>
-      <div id="first row">
-        <div style={inputGroup}>
-          <label htmlFor="" style={label}>
-            First Name
-          </label>
-          <input type="text" style={input} />
-        </div>
-        <div style={inputGroup}>
-          <label htmlFor="" style={label}>
-            Last Name
-          </label>
-          <input type="text" style={input} />
-        </div>
+      <div style={inputGroup}>
+        <label htmlFor="" style={label}>
+          First Name
+        </label>
+        <input type="text" style={input} />
+      </div>
+      <div style={inputGroup}>
+        <label htmlFor="" style={label}>
+          Last Name
+        </label>
+        <input type="text" style={input} />
+      </div>
 
+      <div style={inputGroup}>
+        <label htmlFor="" style={label}>
+          Email
+        </label>
+        <input type="email" name="" id="" style={input} />
+      </div>
+
+      <div style={inputGroup}>
+        <label htmlFor="" style={label}>
+          Gender
+        </label>
+        <GenderRadio />
+      </div>
+
+      <div>
         <div style={inputGroup}>
           <label htmlFor="" style={label}>
-            Email
+            Photo
           </label>
-          <input type="email" name="" id="" style={input} />
+          <input type="file" name="" id="" style={input} />
         </div>
       </div>
-      <div id="third row">
-        <div style={inputGroup}>
-          <label htmlFor="" style={label}>
-            Gender
-          </label>
-          <GenderRadio />
-        </div>
-        <div>
-          <label htmlFor="">Age</label>
-          <input type="number" name="" id="" />
-        </div>
-        <div>
-          <label htmlFor="">Birthday</label>
-          <p>Placeholder</p>
-        </div>
-      </div>
-      <div id="forth row">
-        <div>
-          <div>
-            <label htmlFor="">Phohe</label>
-            <input type="tel" name="" id="" />
-          </div>
-          <div>
-            <label htmlFor="">Photo</label>
-            <input type="file" name="" id="" />
-          </div>
-        </div>
-        <div>Image</div>
+      <div style={imageContainer}>
+        <FaRegUserCircle size={ICON_SIZE} />
       </div>
     </div>
   );
 }
-
+const ICON_SIZE = "200";
+const imageContainer: CSSProperties = {
+  display: "flex",
+  justifyContent: "center",
+};
 const inputGroup: CSSProperties = {
   marginTop: "0.25rem",
   fontSize: "0.875rem",
