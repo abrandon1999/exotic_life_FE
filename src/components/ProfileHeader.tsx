@@ -1,28 +1,42 @@
 import type { CSSProperties } from "react";
-
-export default function ProfileHeader() {
+import { FaRegCheckCircle } from "react-icons/fa";
+import { FaRegCircle } from "react-icons/fa";
+interface Props {
+  page: number;
+}
+export default function ProfileHeader({ page }: Props) {
   return (
     <div style={container}>
       <div style={block}>
-        <div style={round}></div>
-        <p style={text}>Step 1</p>
-        <div style={line}></div>
+        {page > 1 ? (
+          <FaRegCheckCircle size={SIZE} color={COLOR} />
+        ) : (
+          <FaRegCircle size={SIZE} />
+        )}
+        <p style={page > 1 ? textGreen : text}>Step 1</p>
+        <div style={page > 1 ? lineColor : line}></div>
       </div>
       <div style={block}>
-        <div style={round}></div>
-        <p style={text}>Step 2</p>
-        <div style={line}></div>
+        {page > 2 ? (
+          <FaRegCheckCircle size={SIZE} color={COLOR} />
+        ) : (
+          <FaRegCircle size={SIZE} />
+        )}
+        <p style={page > 2 ? textGreen : text}>Step 2</p>
+        <div style={page > 2 ? lineColor : line}></div>
       </div>
       <div style={block}>
-        <div style={round}></div>
+        <FaRegCircle size={SIZE} />
         <p style={text}>Step 3</p>
       </div>
     </div>
   );
 }
-const SIZE = "40px";
+const SIZE = "40";
+const COLOR = "green";
 const LENGTH = "80px";
 const FONT_SIZE = "0.60rem";
+const MARGINLEFT = "5px";
 const container: CSSProperties = {
   display: "flex",
   justifyContent: "center",
@@ -32,13 +46,7 @@ const block: CSSProperties = {
   display: "flex",
   alignItems: "center",
 };
-const round: CSSProperties = {
-  width: SIZE,
-  height: SIZE,
-  borderRadius: "50%",
-  backgroundColor: "#fff",
-  marginRight: "5px",
-};
+
 const line: CSSProperties = {
   width: LENGTH,
   height: "3px",
@@ -47,7 +55,22 @@ const line: CSSProperties = {
   marginLeft: "5px",
   marginRight: "5px",
 };
+const lineColor: CSSProperties = {
+  width: LENGTH,
+  height: "3px",
+  borderStyle: "solid",
+  borderColor: COLOR,
+  marginLeft: "5px",
+  marginRight: "5px",
+};
 const text: CSSProperties = {
   fontSize: FONT_SIZE,
   fontWeight: 600,
+  marginLeft: MARGINLEFT,
+};
+const textGreen: CSSProperties = {
+  fontSize: FONT_SIZE,
+  fontWeight: 600,
+  marginLeft: MARGINLEFT,
+  color: COLOR,
 };

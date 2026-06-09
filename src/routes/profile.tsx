@@ -12,7 +12,7 @@ function RouteComponent() {
   const [page, setPage] = useState(1);
   return (
     <div>
-      <ProfileHeader />
+      <ProfileHeader page={page} />
       <ProfileContent />
       <ProfileFooter page={page} onPaginate={handlePaginate} />
     </div>
