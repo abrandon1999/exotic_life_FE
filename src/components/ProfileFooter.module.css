@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(55, 65, 81, 1);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 110px;
+  border: 1px solid rgba(55, 65, 81, 1);
+  border-radius: 0.375rem;
+  background-color: rgba(17, 24, 39, 1);
+  color: rgba(243, 244, 246, 1);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+}
+
+.button:hover,
+.button:focus-visible {
+  border-color: rgba(167, 139, 250, 1);
+  background-color: rgba(31, 41, 55, 1);
+  box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.18);
+  outline: none;
+}
+.page {
+  font-size: 2rem;
+  font-family: monospace;
+}
+.primary {
+  border-color: rgba(167, 139, 250, 1);
+  background-color: rgba(167, 139, 250, 1);
+  color: rgba(17, 24, 39, 1);
+}
+
+.primary:hover,
+.primary:focus-visible {
+  background-color: rgba(183, 160, 255, 1);
+  border-color: rgba(183, 160, 255, 1);
+  color: rgba(17, 24, 39, 1);
+}
+
+@media (max-width: 420px) {
+  .container {
+    gap: 0.75rem;
+  }
+
+  .button {
+    flex: 1;
+    min-width: 0;
+  }
+}
