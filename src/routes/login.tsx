@@ -4,6 +4,7 @@ import styles from "./-login.module.css";
 import { FaGoogle } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
+import { Link } from "@tanstack/react-router";
 export const Route = createFileRoute("/login")({
   component: RouteComponent,
 });
@@ -42,9 +43,9 @@ function RouteComponent() {
         <div className={styles.forgot}>
           <span>Don't have an account?</span>
         </div>
-        <button type="submit" className={styles.sign}>
+        <Link to="/register" className={styles.sign}>
           Register
-        </button>
+        </Link>
       </div>
     </div>
   );

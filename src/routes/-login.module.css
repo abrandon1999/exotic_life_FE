@@ -54,18 +54,6 @@
   margin: 8px 0 14px 0;
 }
 
-.forgot a,
-.signup a {
-  color: rgba(243, 244, 246, 1);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.forgot a:hover,
-.signup a:hover {
-  text-decoration: underline rgba(167, 139, 250, 1);
-}
-
 .sign {
   display: block;
   width: 100%;
@@ -78,6 +66,17 @@
   font-weight: 600;
   margin-bottom: 1rem;
   cursor: pointer;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.sign:hover,
+.sign:focus-visible {
+  background-color: rgba(183, 160, 255, 1);
+  box-shadow: 0 0 0 1px rgba(243, 244, 246, 0.12);
 }
 
 .socialMessage {
