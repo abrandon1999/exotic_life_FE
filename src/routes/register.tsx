@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import styles from "./-login.module.css";
-
+//import { url } from "@/utils/variables";
 export const Route = createFileRoute("/register")({
   component: RouteComponent,
 });
@@ -13,7 +13,7 @@ function RouteComponent() {
     <div style={container}>
       <div className={styles.formContainer}>
         <p className={styles.title}>Register</p>
-        <form action="" className={styles.form}>
+        <form action={handleRegisterForm} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor="name">Name</label>
             <input type="text" name="name" id="name" />
@@ -50,9 +50,21 @@ function RouteComponent() {
     </div>
   );
 }
-
+async function handleRegisterForm(formData: FormData) {
+  const name = formData.get("name") as string;
+  const username = formData.get("username") as string;
+  const password = formData.get("password") as string;
+  const registerFormObj = { name, username, password };
+  console.log(registerFormObj);
+  //TODO: configure fetch the send registerFormObj to backend
+  // const res = await fetch(url, {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   method: "POST",
+  // });
+}
 const ICON_SIZE = "30";
-
 const container: CSSProperties = {
   display: "flex",
   width: "100%",
