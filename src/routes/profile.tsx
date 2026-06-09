@@ -1,4 +1,5 @@
 import ProfileContent from "@/components/ProfileContent";
+import ProfileFooter from "@/components/ProfileFooter";
 import ProfileHeader from "@/components/ProfileHeader";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -11,6 +12,7 @@ function RouteComponent() {
     <div>
       <ProfileHeader />
       <ProfileContent />
+      <ProfileFooter />
     </div>
   );
 }
