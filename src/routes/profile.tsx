@@ -3,7 +3,7 @@ import ProfileContentTwo from "@/components/ProfileContentTwo";
 import ProfileFooter from "@/components/ProfileFooter";
 import ProfileHeader from "@/components/ProfileHeader";
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 
 export const Route = createFileRoute("/profile")({
   component: RouteComponent,
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/profile")({
 function RouteComponent() {
   const [page, setPage] = useState(1);
   return (
-    <div>
+    <div style={container}>
       <ProfileHeader page={page} />
       <ProfileContentTwo />
       <ProfileFooter page={page} onPaginate={handlePaginate} />
@@ -22,3 +22,8 @@ function RouteComponent() {
     setPage(page);
   }
 }
+
+const container: CSSProperties = {
+  minHeight: "100vh",
+  paddingBottom: "6rem",
+};
