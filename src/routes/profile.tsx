@@ -1,4 +1,5 @@
-import ProfileContent from "@/components/ProfileContent";
+//import ProfileContentOne from "@/components/ProfileContentOne";
+import ProfileContentTwo from "@/components/ProfileContentTwo";
 import ProfileFooter from "@/components/ProfileFooter";
 import ProfileHeader from "@/components/ProfileHeader";
 import { createFileRoute } from "@tanstack/react-router";
@@ -13,7 +14,7 @@ function RouteComponent() {
   return (
     <div>
       <ProfileHeader page={page} />
-      <ProfileContent />
+      <ProfileContentTwo />
       <ProfileFooter page={page} onPaginate={handlePaginate} />
     </div>
   );
