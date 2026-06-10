@@ -1,14 +1,8 @@
-import ColorSelection from "./ColorSelection";
-import InterestSelection from "./InterestSelection";
+import type { ReactNode } from "react";
 
 interface Props {
-  onSelectedInterests: (interests: string[]) => void;
+  children: ReactNode;
 }
-export default function ProfileContentTwo({ onSelectedInterests }: Props) {
-  return (
-    <div>
-      <InterestSelection onSelectedInterests={onSelectedInterests} />
-      <ColorSelection />
-    </div>
-  );
+export default function ProfileContentTwo({ children }: Props) {
+  return <div>{children}</div>;
 }

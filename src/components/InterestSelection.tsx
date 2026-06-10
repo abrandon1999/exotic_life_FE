@@ -1,32 +1,15 @@
-import { useState } from "react";
 import styles from "./InterestSelection.module.css";
 
 const interests = ["People", "Places", "Food", "Animals", "Cars", "Plants"];
 
 interface Props {
-  onSelectedInterests: (interests: string[]) => void;
+  onInterestChange: (interest: string) => void;
+  selectedInterests: string[];
 }
-export default function InterestSelection({ onSelectedInterests }: Props) {
-  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
-  function handleInterestChange(interest: string) {
-    setSelectedInterests((currentInterests) =>
-      currentInterests.includes(interest)
-        ? currentInterests.filter(
-            (currentInterest) => currentInterest !== interest,
-          )
-        : [...currentInterests, interest],
-    );
-
-    onSelectedInterests(
-      selectedInterests.includes(interest)
-        ? selectedInterests.filter(
-            (currentInterest) => currentInterest !== interest,
-          )
-        : [...selectedInterests, interest],
-    );
-    console.log("function");
-  }
-
+export default function InterestSelection({
+  onInterestChange,
+  selectedInterests,
+}: Props) {
   return (
     <div className={styles.container}>
       <p className={styles.label}>Interest</p>
@@ -39,8 +22,7 @@ export default function InterestSelection({ onSelectedInterests }: Props) {
               value={interest}
               checked={selectedInterests.includes(interest)}
               onChange={() => {
-                handleInterestChange(interest);
-                onSelectedInterests([...selectedInterests]);
+                onInterestChange(interest);
               }}
             />
             <span>{interest}</span>

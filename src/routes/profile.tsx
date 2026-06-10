@@ -9,22 +9,33 @@ import ProfileTextInput from "@/components/ProfileTextInput";
 import GenderRadio from "@/components/GenderRadio";
 import ProfileFileInput from "@/components/ProfileFileInput";
 import ProfilePicture from "@/components/ProfilePicture";
+import InterestSelection from "@/components/InterestSelection";
+import ColorSelection from "@/components/ColorSelection";
 export const Route = createFileRoute("/profile")({
   component: RouteComponent,
 });
 
+type UserInfo = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  gender: string;
+  imageUrl: string;
+  interests: string[];
+  color: string;
+};
 function RouteComponent() {
   const [page, setPage] = useState(1);
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState<UserInfo>({
     firstName: "",
     lastName: "",
     email: "abrandon1999@yahoo.com",
     gender: "Male",
     imageUrl: "",
-    interest: [],
+    interests: [],
     color: "",
   });
-  //console.log(userInfo);
+  console.log(userInfo.interests);
   return (
     <div style={container}>
       <ProfileHeader page={page} />
@@ -47,7 +58,13 @@ function RouteComponent() {
         </ProfileContentOne>
       ) : null}
       {page === 2 ? (
-        <ProfileContentTwo onSelectedInterests={handleInterest} />
+        <ProfileContentTwo>
+          <InterestSelection
+            onInterestChange={handleInterestChange}
+            selectedInterests={userInfo.interests}
+          />
+          <ColorSelection />
+        </ProfileContentTwo>
       ) : null}
       {page === 3 ? <ProfileContentThree /> : null}
       <ProfileFooter page={page} onPaginate={handlePaginate} />
@@ -74,8 +91,12 @@ function RouteComponent() {
       setUserInfo({ ...userInfo, imageUrl });
     };
   }
-  function handleInterest(interest: string[]) {
-    console.log(interest);
+  function handleInterestChange(interest: string) {
+    const isIncluded = userInfo.interests.includes(interest);
+    const filterList = userInfo.interests.filter((item) => item !== interest);
+    const addedList = [...userInfo.interests, interest];
+    const interests = isIncluded ? filterList : addedList;
+    setUserInfo({ ...userInfo, interests });
   }
 }
 
