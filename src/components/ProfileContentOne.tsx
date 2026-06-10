@@ -5,23 +5,31 @@ export default function ProfileContent() {
   return (
     <div>
       <div style={inputGroup}>
-        <label htmlFor="" style={label}>
+        <label htmlFor="first" style={label}>
           First Name
         </label>
-        <input type="text" style={input} />
+        <input
+          type="text"
+          style={input}
+          onChange={(e) => console.log(e.target.value)}
+        />
       </div>
       <div style={inputGroup}>
         <label htmlFor="" style={label}>
           Last Name
         </label>
-        <input type="text" style={input} />
+        <input
+          type="text"
+          style={input}
+          onChange={(e) => console.log(e.target.value)}
+        />
       </div>
 
       <div style={inputGroup}>
         <label htmlFor="" style={label}>
           Email
         </label>
-        <input type="email" name="" id="" style={input} />
+        <input type="email" name="" id="" style={input} disabled />
       </div>
 
       <div style={inputGroup}>
