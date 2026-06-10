@@ -5,7 +5,10 @@ import ProfileFooter from "@/components/ProfileFooter";
 import ProfileHeader from "@/components/ProfileHeader";
 import { createFileRoute } from "@tanstack/react-router";
 import { type CSSProperties, useState } from "react";
-
+import ProfileTextInput from "@/components/ProfileTextInput";
+import GenderRadio from "@/components/GenderRadio";
+import ProfileFileInput from "@/components/ProfileFileInput";
+import ProfilePicture from "@/components/ProfilePicture";
 export const Route = createFileRoute("/profile")({
   component: RouteComponent,
 });
@@ -25,13 +28,14 @@ function RouteComponent() {
     <div style={container}>
       <ProfileHeader page={page} />
       {page === 1 ? (
-        <ProfileContentOne
-          onHandleFirstName={handleFirstName}
-          onHandleLastName={handleLastName}
-          onHandleGender={handleGender}
-          onHandleProfilePic={handleProfilePic}
-          imageUrl={userInfo.imageUrl}
-        />
+        <ProfileContentOne>
+          <ProfileTextInput label="First Name" onHandle={handleFirstName} />
+          <ProfileTextInput label="Last Name" onHandle={handleLastName} />
+          <ProfileTextInput label="Email" />
+          <GenderRadio onHandleGender={handleGender} />
+          <ProfileFileInput onHandleProfilePic={handleProfilePic} />
+          <ProfilePicture imageUrl={userInfo.imageUrl} />
+        </ProfileContentOne>
       ) : null}
       {page === 2 ? (
         <ProfileContentTwo onSelectedInterests={handleInterest} />
