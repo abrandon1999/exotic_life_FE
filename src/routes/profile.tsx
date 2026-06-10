@@ -24,6 +24,7 @@ function RouteComponent() {
 }
 
 const container: CSSProperties = {
+  padding: "1rem",
   minHeight: "100vh",
   paddingBottom: "6rem",
 };

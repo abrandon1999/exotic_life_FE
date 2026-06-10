@@ -34,7 +34,7 @@ export default function ProfileHeader({ page }: Props) {
 }
 const SIZE = "40";
 const COLOR = "green";
-const LENGTH = "80px";
+const LENGTH = "75px";
 const FONT_SIZE = "0.60rem";
 const MARGINLEFT = "5px";
 const container: CSSProperties = {
