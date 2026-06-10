@@ -18,6 +18,7 @@ function RouteComponent() {
   const [userInfo, setUserInfo] = useState({
     firstName: "",
     lastName: "",
+    email: "abrandon1999@yahoo.com",
     gender: "Male",
     imageUrl: "",
     interest: [],
@@ -29,10 +30,18 @@ function RouteComponent() {
       <ProfileHeader page={page} />
       {page === 1 ? (
         <ProfileContentOne>
-          <ProfileTextInput label="First Name" onHandle={handleFirstName} />
-          <ProfileTextInput label="Last Name" onHandle={handleLastName} />
-          <ProfileTextInput label="Email" />
-          <GenderRadio onHandleGender={handleGender} />
+          <ProfileTextInput
+            label="First Name"
+            onHandle={handleFirstName}
+            value={userInfo.firstName}
+          />
+          <ProfileTextInput
+            label="Last Name"
+            onHandle={handleLastName}
+            value={userInfo.lastName}
+          />
+          <ProfileTextInput label="Email" value={userInfo.email} />
+          <GenderRadio onHandleGender={handleGender} value={userInfo.gender} />
           <ProfileFileInput onHandleProfilePic={handleProfilePic} />
           <ProfilePicture imageUrl={userInfo.imageUrl} />
         </ProfileContentOne>

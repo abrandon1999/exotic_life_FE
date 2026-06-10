@@ -2,9 +2,10 @@ import type { CSSProperties } from "react";
 
 interface Props {
   label: string;
+  value: string;
   onHandle?: (name: string) => void;
 }
-export default function ProfileTextInput({ label, onHandle }: Props) {
+export default function ProfileTextInput({ label, onHandle, value }: Props) {
   return (
     <div style={inputGroup}>
       <label htmlFor="first" style={labelStyle}>
@@ -13,6 +14,7 @@ export default function ProfileTextInput({ label, onHandle }: Props) {
       <input
         type="text"
         style={inputStyle}
+        value={value}
         onChange={(e) => {
           if (!onHandle) return;
           onHandle(e.target.value);

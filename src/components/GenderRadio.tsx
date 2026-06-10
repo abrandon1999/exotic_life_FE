@@ -1,13 +1,11 @@
-import { useState } from "react";
 import styles from "./GenderRadio.module.css";
 import type { CSSProperties } from "react";
 const genderOptions = ["Male", "Female", "Divided"];
 interface Props {
   onHandleGender: (gender: string) => void;
+  value: string;
 }
-export default function GenderRadio({ onHandleGender }: Props) {
-  const [selectedGender, setSelectedGender] = useState(genderOptions[0]);
-
+export default function GenderRadio({ onHandleGender, value }: Props) {
   return (
     <div style={inputGroup}>
       <label htmlFor="" style={label}>
@@ -21,10 +19,9 @@ export default function GenderRadio({ onHandleGender }: Props) {
                 type="radio"
                 name="gender"
                 value={gender}
-                checked={selectedGender === gender}
+                checked={value === gender}
                 onChange={() => {
                   onHandleGender(gender);
-                  setSelectedGender(gender);
                 }}
               />
               <span>{gender}</span>
