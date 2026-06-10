@@ -25,7 +25,7 @@ type UserInfo = {
   color: string;
 };
 function RouteComponent() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
   const [userInfo, setUserInfo] = useState<UserInfo>({
     firstName: "",
     lastName: "",
@@ -33,9 +33,9 @@ function RouteComponent() {
     gender: "Male",
     imageUrl: "",
     interests: [],
-    color: "",
+    color: "#A78BFA",
   });
-  console.log(userInfo.interests);
+  console.log(userInfo.color);
   return (
     <div style={container}>
       <ProfileHeader page={page} />
@@ -63,7 +63,10 @@ function RouteComponent() {
             onInterestChange={handleInterestChange}
             selectedInterests={userInfo.interests}
           />
-          <ColorSelection />
+          <ColorSelection
+            value={userInfo.color}
+            onColorChange={handleColorChange}
+          />
         </ProfileContentTwo>
       ) : null}
       {page === 3 ? <ProfileContentThree /> : null}
@@ -97,6 +100,9 @@ function RouteComponent() {
     const addedList = [...userInfo.interests, interest];
     const interests = isIncluded ? filterList : addedList;
     setUserInfo({ ...userInfo, interests });
+  }
+  function handleColorChange(color: string) {
+    setUserInfo({ ...userInfo, color });
   }
 }
 

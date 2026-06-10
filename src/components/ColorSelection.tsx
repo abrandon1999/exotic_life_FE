@@ -1,13 +1,19 @@
-import { type CSSProperties, type PointerEvent, useState } from "react";
+import { type CSSProperties, type PointerEvent } from "react";
 import styles from "./ColorSelection.module.css";
 
 const SATURATION = 92;
 const LIGHTNESS = 62;
 const MARKER_RADIUS = 42;
+const DEFAULT_COLOR = "#A78BFA";
 
-export default function ColorSelection() {
-  const [hue, setHue] = useState(270);
-  const selectedColor = hslToHex(hue, SATURATION, LIGHTNESS);
+interface Props {
+  value: string;
+  onColorChange: (color: string) => void;
+}
+
+export default function ColorSelection({ value, onColorChange }: Props) {
+  const selectedColor = value || DEFAULT_COLOR;
+  const hue = hexToHue(selectedColor);
   const markerAngle = ((hue - 90) * Math.PI) / 180;
   const markerX = 50 + Math.cos(markerAngle) * MARKER_RADIUS;
   const markerY = 50 + Math.sin(markerAngle) * MARKER_RADIUS;
@@ -25,7 +31,7 @@ export default function ColorSelection() {
     const angle = Math.atan2(event.clientY - centerY, event.clientX - centerX);
     const nextHue = Math.round(((angle * 180) / Math.PI + 90 + 360) % 360);
 
-    setHue(nextHue);
+    onColorChange(hslToHex(nextHue, SATURATION, LIGHTNESS));
   }
 
   function handlePointerDown(event: PointerEvent<HTMLButtonElement>) {
@@ -106,4 +112,32 @@ function hslToHex(hue: number, saturation: number, lightness: number) {
     .join("")
     .toUpperCase()
     .padStart(7, "#");
+}
+
+function hexToHue(hexColor: string) {
+  const normalizedHex = hexColor.replace("#", "");
+  const red = parseInt(normalizedHex.slice(0, 2), 16) / 255;
+  const green = parseInt(normalizedHex.slice(2, 4), 16) / 255;
+  const blue = parseInt(normalizedHex.slice(4, 6), 16) / 255;
+  const max = Math.max(red, green, blue);
+  const min = Math.min(red, green, blue);
+  const delta = max - min;
+
+  if (delta === 0) {
+    return 0;
+  }
+
+  if (max === red) {
+    return normalizeHue(Math.round(60 * (((green - blue) / delta) % 6)));
+  }
+
+  if (max === green) {
+    return normalizeHue(Math.round(60 * ((blue - red) / delta + 2)));
+  }
+
+  return normalizeHue(Math.round(60 * ((red - green) / delta + 4)));
+}
+
+function normalizeHue(hue: number) {
+  return (hue + 360) % 360;
 }
