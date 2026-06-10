@@ -20,7 +20,7 @@ function RouteComponent() {
     interest: [],
     color: "",
   });
-  console.log(userInfo);
+  //console.log(userInfo);
   return (
     <div style={container}>
       <ProfileHeader page={page} />
@@ -33,7 +33,9 @@ function RouteComponent() {
           imageUrl={userInfo.imageUrl}
         />
       ) : null}
-      {page === 2 ? <ProfileContentTwo /> : null}
+      {page === 2 ? (
+        <ProfileContentTwo onSelectedInterests={handleInterest} />
+      ) : null}
       {page === 3 ? <ProfileContentThree /> : null}
       <ProfileFooter page={page} onPaginate={handlePaginate} />
     </div>
@@ -58,6 +60,9 @@ function RouteComponent() {
       const imageUrl = fileReader.result as string;
       setUserInfo({ ...userInfo, imageUrl });
     };
+  }
+  function handleInterest(interest: string[]) {
+    console.log(interest);
   }
 }
 

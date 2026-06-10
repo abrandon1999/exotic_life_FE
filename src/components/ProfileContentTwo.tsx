@@ -1,10 +1,13 @@
 import ColorSelection from "./ColorSelection";
 import InterestSelection from "./InterestSelection";
 
-export default function ProfileContentTwo() {
+interface Props {
+  onSelectedInterests: (interests: string[]) => void;
+}
+export default function ProfileContentTwo({ onSelectedInterests }: Props) {
   return (
     <div>
-      <InterestSelection />
+      <InterestSelection onSelectedInterests={onSelectedInterests} />
       <ColorSelection />
     </div>
   );
