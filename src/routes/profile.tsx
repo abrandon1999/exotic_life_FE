@@ -12,10 +12,27 @@ export const Route = createFileRoute("/profile")({
 
 function RouteComponent() {
   const [page, setPage] = useState(1);
+  const [userInfo, setUserInfo] = useState({
+    firstName: "",
+    lastName: "",
+    gender: "Male",
+    imageUrl: "",
+    interest: [],
+    color: "",
+  });
+  console.log(userInfo);
   return (
     <div style={container}>
       <ProfileHeader page={page} />
-      {page === 1 ? <ProfileContentOne /> : null}
+      {page === 1 ? (
+        <ProfileContentOne
+          onHandleFirstName={handleFirstName}
+          onHandleLastName={handleLastName}
+          onHandleGender={handleGender}
+          onHandleProfilePic={handleProfilePic}
+          imageUrl={userInfo.imageUrl}
+        />
+      ) : null}
       {page === 2 ? <ProfileContentTwo /> : null}
       {page === 3 ? <ProfileContentThree /> : null}
       <ProfileFooter page={page} onPaginate={handlePaginate} />
@@ -23,6 +40,24 @@ function RouteComponent() {
   );
   function handlePaginate(page: number) {
     setPage(page);
+  }
+  function handleFirstName(firstName: string) {
+    setUserInfo({ ...userInfo, firstName });
+  }
+  function handleLastName(lastName: string) {
+    setUserInfo({ ...userInfo, lastName });
+  }
+
+  function handleGender(gender: string) {
+    setUserInfo({ ...userInfo, gender });
+  }
+  function handleProfilePic(file: File) {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      const imageUrl = fileReader.result as string;
+      setUserInfo({ ...userInfo, imageUrl });
+    };
   }
 }
 

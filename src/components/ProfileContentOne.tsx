@@ -1,7 +1,20 @@
 import type { CSSProperties } from "react";
 import GenderRadio from "./GenderRadio";
 import { FaRegUserCircle } from "react-icons/fa";
-export default function ProfileContent() {
+interface Props {
+  onHandleFirstName: (firstName: string) => void;
+  onHandleLastName: (lastName: string) => void;
+  onHandleGender: (gender: string) => void;
+  onHandleProfilePic: (file: File) => void;
+  imageUrl: string;
+}
+export default function ProfileContent({
+  onHandleFirstName,
+  onHandleLastName,
+  onHandleGender,
+  onHandleProfilePic,
+  imageUrl,
+}: Props) {
   return (
     <div>
       <div style={inputGroup}>
@@ -11,7 +24,7 @@ export default function ProfileContent() {
         <input
           type="text"
           style={input}
-          onChange={(e) => console.log(e.target.value)}
+          onChange={(e) => onHandleFirstName(e.target.value)}
         />
       </div>
       <div style={inputGroup}>
@@ -21,7 +34,7 @@ export default function ProfileContent() {
         <input
           type="text"
           style={input}
-          onChange={(e) => console.log(e.target.value)}
+          onChange={(e) => onHandleLastName(e.target.value)}
         />
       </div>
 
@@ -36,7 +49,7 @@ export default function ProfileContent() {
         <label htmlFor="" style={label}>
           Gender
         </label>
-        <GenderRadio />
+        <GenderRadio onHandleGender={onHandleGender} />
       </div>
 
       <div>
@@ -44,11 +57,31 @@ export default function ProfileContent() {
           <label htmlFor="" style={label}>
             Photo
           </label>
-          <input type="file" name="" id="" style={input} />
+          <input
+            type="file"
+            name=""
+            id=""
+            style={input}
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                onHandleProfilePic(file);
+              }
+            }}
+          />
         </div>
       </div>
       <div style={imageContainer}>
-        <FaRegUserCircle size={ICON_SIZE} />
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="User Profile Picture"
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+        ) : (
+          <FaRegUserCircle size={ICON_SIZE} />
+        )}
       </div>
     </div>
   );

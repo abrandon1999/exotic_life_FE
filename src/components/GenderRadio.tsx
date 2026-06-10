@@ -2,10 +2,12 @@ import { useState } from "react";
 import styles from "./GenderRadio.module.css";
 
 const genderOptions = ["Male", "Female", "Divided"];
-
-export default function GenderRadio() {
+interface Props {
+  onHandleGender: (gender: string) => void;
+}
+export default function GenderRadio({ onHandleGender }: Props) {
   const [selectedGender, setSelectedGender] = useState(genderOptions[0]);
-  console.log(selectedGender);
+
   return (
     <div className={styles.mydict}>
       <div>
@@ -16,7 +18,10 @@ export default function GenderRadio() {
               name="gender"
               value={gender}
               checked={selectedGender === gender}
-              onChange={() => setSelectedGender(gender)}
+              onChange={() => {
+                onHandleGender(gender);
+                setSelectedGender(gender);
+              }}
             />
             <span>{gender}</span>
           </label>
