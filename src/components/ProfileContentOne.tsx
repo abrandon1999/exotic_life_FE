@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import GenderRadio from "./GenderRadio";
 import { FaRegUserCircle } from "react-icons/fa";
+import ProfileTextInput from "./ProfileTextInput";
 interface Props {
   onHandleFirstName: (firstName: string) => void;
   onHandleLastName: (lastName: string) => void;
@@ -17,33 +18,9 @@ export default function ProfileContent({
 }: Props) {
   return (
     <div>
-      <div style={inputGroup}>
-        <label htmlFor="first" style={label}>
-          First Name
-        </label>
-        <input
-          type="text"
-          style={input}
-          onChange={(e) => onHandleFirstName(e.target.value)}
-        />
-      </div>
-      <div style={inputGroup}>
-        <label htmlFor="" style={label}>
-          Last Name
-        </label>
-        <input
-          type="text"
-          style={input}
-          onChange={(e) => onHandleLastName(e.target.value)}
-        />
-      </div>
-
-      <div style={inputGroup}>
-        <label htmlFor="" style={label}>
-          Email
-        </label>
-        <input type="email" name="" id="" style={input} disabled />
-      </div>
+      <ProfileTextInput label="First Name" onHandle={onHandleFirstName} />
+      <ProfileTextInput label="Last Name" onHandle={onHandleLastName} />
+      <ProfileTextInput label="Email" />
 
       <div style={inputGroup}>
         <label htmlFor="" style={label}>
