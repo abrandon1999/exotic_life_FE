@@ -1,4 +1,5 @@
 //import ProfileContentOne from "@/components/ProfileContentOne";
+import ProfileContentThree from "@/components/ProfileContentThree";
 import ProfileContentTwo from "@/components/ProfileContentTwo";
 import ProfileFooter from "@/components/ProfileFooter";
 import ProfileHeader from "@/components/ProfileHeader";
@@ -14,7 +15,7 @@ function RouteComponent() {
   return (
     <div style={container}>
       <ProfileHeader page={page} />
-      <ProfileContentTwo />
+      <ProfileContentThree />
       <ProfileFooter page={page} onPaginate={handlePaginate} />
     </div>
   );

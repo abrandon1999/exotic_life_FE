@@ -1,0 +1,37 @@
+.buttonGradientBorder {
+  padding: 12px 30px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  cursor: pointer;
+
+  /* Two backgrounds:
+     1) inner fill
+     2) gradient border */
+  background:
+    linear-gradient(#05070d, #05070d) padding-box,
+    linear-gradient(90deg, #8b7bff, #ec4899) border-box;
+
+  background-clip: padding-box, border-box;
+
+  /* subtle glow */
+  box-shadow:
+    0 0 20px rgba(139, 123, 255, 0.3),
+    0 0 40px rgba(236, 72, 153, 0.2);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.buttonGradientBorder:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 25px rgba(139, 123, 255, 0.5),
+    0 0 50px rgba(236, 72, 153, 0.4);
+}
