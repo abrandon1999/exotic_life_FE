@@ -3,7 +3,7 @@ import type { CSSProperties } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import styles from "./-login.module.css";
-//import { url } from "@/utils/variables";
+import { BACKEND_BASE_URL } from "@/utils/variables";
 export const Route = createFileRoute("/register")({
   component: RouteComponent,
 });
@@ -19,8 +19,8 @@ function RouteComponent() {
             <input type="text" name="name" id="name" />
           </div>
           <div className={styles.inputGroup}>
-            <label htmlFor="username">Username</label>
-            <input type="text" name="username" id="username" />
+            <label htmlFor="email">Email</label>
+            <input type="email" name="email" id="email" />
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="password">Password</label>
@@ -52,17 +52,27 @@ function RouteComponent() {
 }
 async function handleRegisterForm(formData: FormData) {
   const name = formData.get("name") as string;
-  const username = formData.get("username") as string;
+  const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-  const registerFormObj = { name, username, password };
-  console.log(registerFormObj);
+  const registerFormObj = { name, email, password };
+
   //TODO: configure fetch the send registerFormObj to backend
-  // const res = await fetch(url, {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   method: "POST",
-  // });
+  try {
+    const response = await fetch(`${BACKEND_BASE_URL}/api/register`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(registerFormObj),
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    //const registerResult = await response.json();
+    //const token = response.headers.get('x-auth-token')
+  } catch (error) {
+    console.log(error);
+  }
 }
 const ICON_SIZE = "30";
 const container: CSSProperties = {
