@@ -69,10 +69,15 @@ function RouteComponent() {
           />
         </ProfileContentTwo>
       ) : null}
-      {page === 3 ? <ProfileContentThree /> : null}
+      {page === 3 ? (
+        <ProfileContentThree onHandleSubmit={handleProfileSubmit} />
+      ) : null}
       <ProfileFooter page={page} onPaginate={handlePaginate} />
     </div>
   );
+  function handleProfileSubmit() {
+    console.log("handle Submit");
+  }
   function handlePaginate(page: number) {
     setPage(page);
   }

@@ -1,11 +1,14 @@
 import type { CSSProperties } from "react";
 import ProfileButton from "./ProfileButton";
-export default function ProfileContentThree() {
+interface Props {
+  onHandleSubmit: () => void;
+}
+export default function ProfileContentThree({ onHandleSubmit }: Props) {
   return (
     <div>
       <h3>Thank You for creating your profile</h3>
       <div style={buttonContainerStyle}>
-        <ProfileButton />
+        <ProfileButton onHandleSubmit={onHandleSubmit} />
       </div>
     </div>
   );
