@@ -1,12 +1,13 @@
 import { FaRegUserCircle } from "react-icons/fa";
 import type { CSSProperties } from "react";
 interface Props {
-  imageUrl: string;
+  image: File | null;
 }
-export default function ProfilePicture({ imageUrl }: Props) {
+export default function ProfilePicture({ image }: Props) {
+  const imageUrl = image ? URL.createObjectURL(image) : "";
   return (
     <div style={imageContainer}>
-      {imageUrl ? (
+      {image ? (
         <img
           src={imageUrl}
           alt="User Profile Picture"

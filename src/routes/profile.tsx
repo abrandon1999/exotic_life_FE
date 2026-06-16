@@ -11,6 +11,7 @@ import ProfileFileInput from "@/components/ProfileFileInput";
 import ProfilePicture from "@/components/ProfilePicture";
 import InterestSelection from "@/components/InterestSelection";
 import ColorSelection from "@/components/ColorSelection";
+import { BACKEND_BASE_URL } from "@/utils/variables";
 export const Route = createFileRoute("/profile")({
   component: RouteComponent,
 });
@@ -20,22 +21,22 @@ type UserInfo = {
   lastName: string;
   email: string;
   gender: string;
-  imageUrl: string;
+  image: File | null;
   interests: string[];
   color: string;
 };
 function RouteComponent() {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [userInfo, setUserInfo] = useState<UserInfo>({
-    firstName: "",
-    lastName: "",
+    firstName: "brandon",
+    lastName: "rouse",
     email: "abrandon1999@yahoo.com",
     gender: "Male",
-    imageUrl: "",
+    image: null,
     interests: [],
     color: "#A78BFA",
   });
-  console.log(userInfo.color);
+
   return (
     <div style={container}>
       <ProfileHeader page={page} />
@@ -54,7 +55,7 @@ function RouteComponent() {
           <ProfileTextInput label="Email" value={userInfo.email} />
           <GenderRadio onHandleGender={handleGender} value={userInfo.gender} />
           <ProfileFileInput onHandleProfilePic={handleProfilePic} />
-          <ProfilePicture imageUrl={userInfo.imageUrl} />
+          <ProfilePicture image={userInfo.image} />
         </ProfileContentOne>
       ) : null}
       {page === 2 ? (
@@ -75,8 +76,26 @@ function RouteComponent() {
       <ProfileFooter page={page} onPaginate={handlePaginate} />
     </div>
   );
-  function handleProfileSubmit() {
-    console.log("handle Submit");
+  async function handleProfileSubmit() {
+    const formData = new FormData();
+
+    formData.append("firstName", userInfo.firstName);
+    formData.append("lastName", userInfo.lastName);
+    formData.append("email", userInfo.email);
+    formData.append("gender", userInfo.gender);
+    formData.append("color", userInfo.color);
+    formData.append("interests", JSON.stringify(userInfo.interests));
+    if (userInfo.image) formData.append("image", userInfo.image);
+
+    const response = await fetch(`${BACKEND_BASE_URL}/api/profile`, {
+      method: "PUT",
+      body: formData,
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    //TODO: Successful Response
+    console.log("Successful Response");
   }
   function handlePaginate(page: number) {
     setPage(page);
@@ -92,12 +111,8 @@ function RouteComponent() {
     setUserInfo({ ...userInfo, gender });
   }
   function handleProfilePic(file: File) {
-    const fileReader = new FileReader();
-    fileReader.readAsDataURL(file);
-    fileReader.onload = () => {
-      const imageUrl = fileReader.result as string;
-      setUserInfo({ ...userInfo, imageUrl });
-    };
+    //FIXME: Don't convert FILE to DataUrl
+    setUserInfo({ ...userInfo, image: file });
   }
   function handleInterestChange(interest: string) {
     const isIncluded = userInfo.interests.includes(interest);
