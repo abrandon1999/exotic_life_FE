@@ -73,12 +73,13 @@ function RouteComponent() {
         },
         method: "POST",
         body: JSON.stringify(loginFormObj),
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
       }
-      const token = response.headers.get("x-auth-token");
-      console.log(token);
+      const responseBody = await response.json();
+      console.log(responseBody);
     } catch (error) {
       console.log(error);
     }
