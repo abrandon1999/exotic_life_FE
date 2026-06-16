@@ -1,3 +1,3 @@
-export const url = "http://localhost:5173";
+export const url = "https://localhost:5173";
 
-export const BACKEND_BASE_URL = "http://localhost:3000";
+export const BACKEND_BASE_URL = "https://localhost:3000";
