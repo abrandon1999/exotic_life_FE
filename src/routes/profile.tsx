@@ -81,7 +81,6 @@ function RouteComponent() {
 
     formData.append("firstName", userInfo.firstName);
     formData.append("lastName", userInfo.lastName);
-    formData.append("email", userInfo.email);
     formData.append("gender", userInfo.gender);
     formData.append("color", userInfo.color);
     formData.append("interests", JSON.stringify(userInfo.interests));
@@ -90,8 +89,10 @@ function RouteComponent() {
     const response = await fetch(`${BACKEND_BASE_URL}/api/profile`, {
       method: "PUT",
       body: formData,
+      credentials: "include",
     });
     if (!response.ok) {
+      console.log("response not ok");
       throw new Error(`Response status: ${response.status}`);
     }
     //TODO: Successful Response
