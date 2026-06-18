@@ -10,17 +10,19 @@ import { FiMessageSquare } from "react-icons/fi";
 import { BACKEND_BASE_URL } from "@/utils/variables";
 export const Route = createFileRoute("/profile/$profileId")({
   loader: async ({ params }) => {
-    const profileId = params;
+    const profileId = params.profileId;
     const response = await fetch(
       `${BACKEND_BASE_URL}/api/profile/${profileId}`,
     );
     const data = await response.json();
-    console.log(data);
+    return data;
   },
   component: RouteComponent,
 });
 const interests = ["People", "Places", "Food", "Animals", "Cars", "Plants"];
 function RouteComponent() {
+  const profile = Route.useLoaderData();
+
   return (
     <div>
       <h2>My Profile</h2>
