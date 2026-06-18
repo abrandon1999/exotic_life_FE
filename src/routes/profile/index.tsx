@@ -1,6 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
+import { CiInstagram } from "react-icons/ci";
+import { RiTwitterXLine } from "react-icons/ri";
+import { FaTiktok } from "react-icons/fa";
+import { HiUsers } from "react-icons/hi2";
+import { FiMessageSquare } from "react-icons/fi";
 export const Route = createFileRoute("/profile/")({
   component: RouteComponent,
 });
@@ -11,8 +17,12 @@ function RouteComponent() {
       <h2>My Profile</h2>
 
       <div style={profileContainer}>
+        <div style={nameContainer}>
+          <HiUsers size={ICON_SIZE} />
+          <FiMessageSquare size={ICON_SIZE} />
+        </div>
         <div style={profileImageContainer}>
-          <FaRegUserCircle size={ICON_SIZE} />
+          <FaRegUserCircle size={ICON_PLACEHOLDER} />
         </div>
         <div style={nameContainer}>
           <p style={nameStyle}>First Name</p>
@@ -28,17 +38,28 @@ function RouteComponent() {
             </li>
           ))}
         </ul>
+        <div style={dividerStyle}></div>
+        <div style={nameContainer}>
+          <FaYoutube size={ICON_SIZE} />
+          <CiInstagram size={ICON_SIZE} />
+          <RiTwitterXLine size={ICON_SIZE} />
+          <FaTiktok size={ICON_SIZE} />
+        </div>
       </div>
     </div>
   );
 }
-const ICON_SIZE = "200";
-const MARGINBOTTOM = "10px";
+
+const ICON_PLACEHOLDER = "200";
+const ICON_SIZE = "30";
+const MARGINBOTTOM = "25px";
+
 const dividerStyle: CSSProperties = {
   height: "2px",
-  border: "3px solid dodgerblue",
+  border: "3px solid white",
   borderRadius: "2px",
   marginBottom: MARGINBOTTOM,
+  marginTop: MARGINBOTTOM,
 };
 const nameStyle: CSSProperties = {
   fontSize: "1.5rem",
@@ -82,7 +103,7 @@ const profileContainer: CSSProperties = {
   flexDirection: "column",
   maxWidth: "400px",
   borderRadius: "10px",
-  border: "5px solid dodgerblue",
+  border: "5px solid white",
   margin: "0 auto",
   padding: "10px",
 };
