@@ -20,10 +20,12 @@ function RouteComponent() {
         </div>
         <p style={emailStyle}>abrandon1999@yahoo.com</p>
         <div style={dividerStyle}></div>
-        <p>Interest</p>
-        <ul>
+        <p style={sectionLabelStyle}>Interest</p>
+        <ul style={interestListStyle}>
           {interests.map((interest, index) => (
-            <li key={index}>{interest}</li>
+            <li key={index} style={interestItemStyle}>
+              {interest}
+            </li>
           ))}
         </ul>
       </div>
@@ -45,6 +47,35 @@ const nameStyle: CSSProperties = {
 const emailStyle: CSSProperties = {
   textAlign: "center",
   marginBottom: MARGINBOTTOM,
+};
+const sectionLabelStyle: CSSProperties = {
+  color: "rgba(156, 163, 175, 1)",
+  fontSize: "0.875rem",
+  fontWeight: 600,
+  lineHeight: "1.25rem",
+  marginBottom: "0.5rem",
+};
+const interestListStyle: CSSProperties = {
+  display: "grid",
+  gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+  gap: "0.5rem",
+  listStyle: "none",
+  margin: 0,
+  padding: 0,
+};
+const interestItemStyle: CSSProperties = {
+  minHeight: "2.5rem",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  border: "1px solid rgba(167, 139, 250, 1)",
+  borderRadius: "8px",
+  backgroundColor: "rgba(31, 41, 55, 1)",
+  color: "rgba(243, 244, 246, 1)",
+  fontSize: "0.875rem",
+  fontWeight: 600,
+  lineHeight: "1.25rem",
+  textAlign: "center",
 };
 const profileContainer: CSSProperties = {
   display: "flex",
