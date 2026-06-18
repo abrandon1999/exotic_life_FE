@@ -8,20 +8,49 @@ import { FaTiktok } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi2";
 import { FiMessageSquare } from "react-icons/fi";
 import { BACKEND_BASE_URL } from "@/utils/variables";
+
+type ProfileImage = {
+  id: string;
+  userId: string;
+  filename: string;
+  path: string;
+  mimetype: string;
+  size: number;
+  isProfile: boolean;
+};
+
+type Profile = {
+  id: string;
+  firstName: string | null;
+  lastName: string | null;
+  gender: string | null;
+  color: string | null;
+  interests: string[] | null;
+  userId: string;
+  imageId: string | null;
+  image: ProfileImage | null;
+};
+
 export const Route = createFileRoute("/profile/$profileId")({
   loader: async ({ params }) => {
-    const profileId = params.profileId;
-    const response = await fetch(
-      `${BACKEND_BASE_URL}/api/profile/${profileId}`,
-    );
+    const response = await fetch(`${BACKEND_BASE_URL}/api/profile/${params.profileId}`);
+    if (!response.ok) {
+      throw new Error(`Profile request failed: ${response.status}`);
+    }
+
     const data = await response.json();
+    assertProfile(data);
     return data;
   },
   component: RouteComponent,
 });
-const interests = ["People", "Places", "Food", "Animals", "Cars", "Plants"];
+
 function RouteComponent() {
   const profile = Route.useLoaderData();
+  const profileImageUrl = profile.image
+    ? `${BACKEND_BASE_URL}${profile.image.path}`
+    : null;
+  const interests = profile.interests ?? [];
 
   return (
     <div>
@@ -33,13 +62,20 @@ function RouteComponent() {
           <FiMessageSquare size={ICON_SIZE} />
         </div>
         <div style={profileImageContainer}>
-          <FaRegUserCircle size={ICON_PLACEHOLDER} />
+          {profileImageUrl ? (
+            <img
+              src={profileImageUrl}
+              alt={`${profile.firstName ?? "User"} ${profile.lastName ?? "profile"}`}
+              style={profileImageStyle}
+            />
+          ) : (
+            <FaRegUserCircle size={ICON_PLACEHOLDER} />
+          )}
         </div>
         <div style={nameContainer}>
-          <p style={nameStyle}>First Name</p>
-          <p style={nameStyle}>Last Name</p>
+          <p style={nameStyle}>{profile.firstName ?? "First Name"}</p>
+          <p style={nameStyle}>{profile.lastName ?? "Last Name"}</p>
         </div>
-        <p style={emailStyle}>abrandon1999@yahoo.com</p>
         <div style={dividerStyle}></div>
         <p style={sectionLabelStyle}>Interest</p>
         <ul style={interestListStyle}>
@@ -61,6 +97,47 @@ function RouteComponent() {
   );
 }
 
+function assertProfile(value: unknown): asserts value is Profile {
+  if (!isObject(value)) throw new Error("Invalid profile response");
+  if (typeof value.id !== "string") throw new Error("Invalid profile id");
+  if (typeof value.userId !== "string") throw new Error("Invalid profile userId");
+  if (!isNullableString(value.firstName)) throw new Error("Invalid firstName");
+  if (!isNullableString(value.lastName)) throw new Error("Invalid lastName");
+  if (!isNullableString(value.gender)) throw new Error("Invalid gender");
+  if (!isNullableString(value.color)) throw new Error("Invalid color");
+  if (!isNullableString(value.imageId)) throw new Error("Invalid imageId");
+  if (
+    value.interests !== null &&
+    (!Array.isArray(value.interests) ||
+      !value.interests.every((interest) => typeof interest === "string"))
+  ) {
+    throw new Error("Invalid interests");
+  }
+
+  if (value.image !== null) assertProfileImage(value.image);
+}
+
+function assertProfileImage(value: unknown): asserts value is ProfileImage {
+  if (!isObject(value)) throw new Error("Invalid profile image");
+  if (typeof value.id !== "string") throw new Error("Invalid image id");
+  if (typeof value.userId !== "string") throw new Error("Invalid image userId");
+  if (typeof value.filename !== "string") throw new Error("Invalid filename");
+  if (typeof value.path !== "string") throw new Error("Invalid image path");
+  if (typeof value.mimetype !== "string") throw new Error("Invalid mimetype");
+  if (typeof value.size !== "number") throw new Error("Invalid image size");
+  if (typeof value.isProfile !== "boolean") {
+    throw new Error("Invalid image profile flag");
+  }
+}
+
+function isObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function isNullableString(value: unknown): value is string | null {
+  return typeof value === "string" || value === null;
+}
+
 const ICON_PLACEHOLDER = "200";
 const ICON_SIZE = "30";
 const MARGINBOTTOM = "25px";
@@ -75,10 +152,6 @@ const dividerStyle: CSSProperties = {
 const nameStyle: CSSProperties = {
   fontSize: "1.5rem",
   fontWeight: 600,
-};
-const emailStyle: CSSProperties = {
-  textAlign: "center",
-  marginBottom: MARGINBOTTOM,
 };
 const sectionLabelStyle: CSSProperties = {
   color: "rgba(156, 163, 175, 1)",
@@ -122,6 +195,13 @@ const profileImageContainer: CSSProperties = {
   display: "flex",
   justifyContent: "center",
   marginBottom: MARGINBOTTOM,
+};
+const profileImageStyle: CSSProperties = {
+  width: "200px",
+  height: "200px",
+  objectFit: "cover",
+  borderRadius: "50%",
+  border: "3px solid rgba(167, 139, 250, 1)",
 };
 const nameContainer: CSSProperties = {
   display: "flex",
