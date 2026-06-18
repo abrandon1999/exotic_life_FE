@@ -7,7 +7,13 @@ import { RiTwitterXLine } from "react-icons/ri";
 import { FaTiktok } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi2";
 import { FiMessageSquare } from "react-icons/fi";
-export const Route = createFileRoute("/profile/")({
+//import { BACKEND_BASE_URL } from "@/utils/variables";
+export const Route = createFileRoute("/profile/$profileId")({
+  //   loader: async () => {
+  //     const response = await fetch(`${BACKEND_BASE_URL}/api/profile`);
+  //     const data = await response.json();
+  //     console.log(data);
+  //   },
   component: RouteComponent,
 });
 const interests = ["People", "Places", "Food", "Animals", "Cars", "Plants"];
