@@ -12,7 +12,7 @@ import ProfilePicture from "@/components/ProfilePicture";
 import InterestSelection from "@/components/InterestSelection";
 import ColorSelection from "@/components/ColorSelection";
 import { BACKEND_BASE_URL } from "@/utils/variables";
-export const Route = createFileRoute("/profile")({
+export const Route = createFileRoute("/profile/profile")({
   component: RouteComponent,
 });
 
