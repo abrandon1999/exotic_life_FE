@@ -6,11 +6,13 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import { Link } from "@tanstack/react-router";
 import { BACKEND_BASE_URL } from "@/utils/variables";
+import { useNavigate } from "@tanstack/react-router";
 export const Route = createFileRoute("/login")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
   return (
     <div style={container}>
       <div className={styles.formContainer}>
@@ -78,8 +80,8 @@ function RouteComponent() {
       if (!response.ok) {
         throw new Error(`Response status: ${response.status}`);
       }
-      const responseBody = await response.json();
-      console.log(responseBody);
+      // const responseBody = await response.json();
+      navigate({ to: "/" });
     } catch (error) {
       console.log(error);
     }
