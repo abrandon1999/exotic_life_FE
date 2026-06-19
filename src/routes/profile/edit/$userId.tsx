@@ -28,20 +28,20 @@ type UserInfo = {
   color: string;
 };
 function RouteComponent() {
-  // const profile = Route.useLoaderData();
-  // const profileImageUrl = profile.image
-  //     ? `${BACKEND_BASE_URL}${profile.image.path}`
-  //     : null;
-  // const interests = profile.interests ?? [];
+  const profile = Route.useLoaderData();
+  const profileImageUrl = profile.image
+    ? `${BACKEND_BASE_URL}${profile.image.path}`
+    : null;
+  //const interests = profile.interests ?? [];
   const [page, setPage] = useState(1);
   const [userInfo, setUserInfo] = useState<UserInfo>({
-    firstName: "brandon",
-    lastName: "rouse",
-    email: "abrandon1999@yahoo.com",
-    gender: "Male",
+    firstName: profile.firstName || "",
+    lastName: profile.lastName || "",
+    email: "",
+    gender: profile.gender || "",
     image: null,
-    interests: [],
-    color: "#A78BFA",
+    interests: profile.interests || [],
+    color: profile.color || "",
   });
 
   return (
