@@ -3,7 +3,7 @@ import ProfileContentThree from "@/components/ProfileContentThree";
 import ProfileContentTwo from "@/components/ProfileContentTwo";
 import ProfileFooter from "@/components/ProfileFooter";
 import ProfileHeader from "@/components/ProfileHeader";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { type CSSProperties, useState } from "react";
 import ProfileTextInput from "@/components/ProfileTextInput";
 import GenderRadio from "@/components/GenderRadio";
@@ -29,6 +29,7 @@ type UserInfo = {
   color: string;
 };
 function RouteComponent() {
+  const navigate = useNavigate();
   const profile = Route.useLoaderData();
   const profileImageUrl = profile.image
     ? `${BACKEND_BASE_URL}${profile.image.path}`
@@ -110,6 +111,7 @@ function RouteComponent() {
     }
     //TODO: Successful Response
     console.log("Successful Response");
+    await navigate({ to: "/" });
   }
   function handlePaginate(page: number) {
     setPage(page);
