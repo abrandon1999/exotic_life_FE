@@ -35,7 +35,9 @@ function RouteComponent() {
     ? `${BACKEND_BASE_URL}${profile.image.path}`
     : null;
   //const interests = profile.interests ?? [];
+
   const [page, setPage] = useState(1);
+  console.log(profile);
   const [userInfo, setUserInfo] = useState<UserInfo>({
     firstName: profile.firstName || "",
     lastName: profile.lastName || "",
@@ -45,7 +47,7 @@ function RouteComponent() {
     interests: profile.interests || [],
     color: profile.color || "",
   });
-
+  //FIXME: console.log(userInfo);
   return (
     <div style={container}>
       <ProfileHeader page={page} />
