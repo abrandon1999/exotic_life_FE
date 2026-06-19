@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
-import { FaRegUserCircle } from "react-icons/fa";
+//import { FaRegUserCircle } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { CiInstagram } from "react-icons/ci";
 import { RiTwitterXLine } from "react-icons/ri";
@@ -10,6 +10,7 @@ import { FiMessageSquare } from "react-icons/fi";
 import profileLoader from "@/lib/profileLoader";
 import { FaRegEdit } from "react-icons/fa";
 import { BACKEND_BASE_URL } from "@/utils/variables";
+import ProfileImage from "@/components/ProfileImage";
 
 export const Route = createFileRoute("/profile/$userId")({
   loader: profileLoader,
@@ -41,17 +42,11 @@ function RouteComponent() {
             <FiMessageSquare size={ICON_SIZE} />
           )}
         </div>
-        <div style={profileImageContainer}>
-          {profileImageUrl ? (
-            <img
-              src={profileImageUrl}
-              alt={`${profile.firstName ?? "User"} ${profile.lastName ?? "profile"}`}
-              style={profileImageStyle}
-            />
-          ) : (
-            <FaRegUserCircle size={ICON_PLACEHOLDER} />
-          )}
-        </div>
+        <ProfileImage
+          profileImageUrl={profileImageUrl}
+          firstName={profile.firstName}
+          lastName={profile.lastName}
+        />
         <div style={nameContainer}>
           <p style={nameStyle}>{profile.firstName ?? "First Name"}</p>
           <p style={nameStyle}>{profile.lastName ?? "Last Name"}</p>
@@ -78,7 +73,7 @@ function RouteComponent() {
   );
 }
 
-const ICON_PLACEHOLDER = "200";
+//const ICON_PLACEHOLDER = "200";
 const ICON_SIZE = "30";
 const MARGINBOTTOM = "25px";
 
@@ -131,18 +126,18 @@ const profileContainer: CSSProperties = {
   margin: "0 auto",
   padding: "10px",
 };
-const profileImageContainer: CSSProperties = {
-  display: "flex",
-  justifyContent: "center",
-  marginBottom: MARGINBOTTOM,
-};
-const profileImageStyle: CSSProperties = {
-  width: "200px",
-  height: "200px",
-  objectFit: "cover",
-  borderRadius: "50%",
-  border: "3px solid rgba(167, 139, 250, 1)",
-};
+// const profileImageContainer: CSSProperties = {
+//   display: "flex",
+//   justifyContent: "center",
+//   marginBottom: MARGINBOTTOM,
+// };
+// const profileImageStyle: CSSProperties = {
+//   width: "200px",
+//   height: "200px",
+//   objectFit: "cover",
+//   borderRadius: "50%",
+//   border: "3px solid rgba(167, 139, 250, 1)",
+// };
 const nameContainer: CSSProperties = {
   display: "flex",
   justifyContent: "space-between",

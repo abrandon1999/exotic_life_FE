@@ -8,11 +8,12 @@ import { type CSSProperties, useState } from "react";
 import ProfileTextInput from "@/components/ProfileTextInput";
 import GenderRadio from "@/components/GenderRadio";
 import ProfileFileInput from "@/components/ProfileFileInput";
-import ProfilePicture from "@/components/ProfilePicture";
+//import ProfilePicture from "@/components/ProfilePicture";
 import InterestSelection from "@/components/InterestSelection";
 import ColorSelection from "@/components/ColorSelection";
 import { BACKEND_BASE_URL } from "@/utils/variables";
 import profileLoader from "@/lib/profileLoader";
+import ProfileImage from "@/components/ProfileImage";
 export const Route = createFileRoute("/profile/edit/$userId")({
   loader: profileLoader,
   component: RouteComponent,
@@ -62,7 +63,12 @@ function RouteComponent() {
           <ProfileTextInput label="Email" value={userInfo.email} />
           <GenderRadio onHandleGender={handleGender} value={userInfo.gender} />
           <ProfileFileInput onHandleProfilePic={handleProfilePic} />
-          <ProfilePicture image={userInfo.image} />
+          <ProfileImage
+            profileImageUrl={profileImageUrl}
+            firstName={profile.firstName}
+            lastName={profile.lastName}
+            imageFile={userInfo.image}
+          />
         </ProfileContentOne>
       ) : null}
       {page === 2 ? (
