@@ -9,14 +9,14 @@ export default function Navbar() {
       <Link to="/about" style={NavbarTextStyle}>
         About
       </Link>
-      <Link to="/profile">Profile</Link>
+      <Link to="/profile/profile">Profile</Link>
       <Link to="/login" style={NavbarTextStyle}>
         Login
       </Link>
     </div>
   );
 }
-
+//FIXME: Profile Link
 const NavbarStyle: CSSProperties = {
   height: "50px",
   width: "100%",

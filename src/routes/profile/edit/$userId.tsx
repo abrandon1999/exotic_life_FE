@@ -12,7 +12,7 @@ import ProfilePicture from "@/components/ProfilePicture";
 import InterestSelection from "@/components/InterestSelection";
 import ColorSelection from "@/components/ColorSelection";
 import { BACKEND_BASE_URL } from "@/utils/variables";
-export const Route = createFileRoute("/profile/profile")({
+export const Route = createFileRoute("/profile/edit/$userId")({
   component: RouteComponent,
 });
 //TODO: compare the current(login) user to the user of the profile, if the users are

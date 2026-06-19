@@ -1,12 +1,12 @@
 import type { CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
 //FIXME:
-const temp = "6257f72d-1d4a-42fb-b000-fd5f07eda275";
+const temp = "3b054c16-0e8d-4193-86a6-a6d0f3d2c28d";
 export default function CardProfile() {
   return (
     <div style={profileContainer}>
       <div style={profilePicture}></div>
-      <Link to="/profile/$profileId" params={{ profileId: temp }}>
+      <Link to="/profile/$userId" params={{ userId: temp }}>
         Your Name Here
       </Link>
     </div>

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
@@ -32,10 +32,10 @@ type Profile = {
   userRequest: string | null | undefined;
 };
 
-export const Route = createFileRoute("/profile/$profileId")({
+export const Route = createFileRoute("/profile/$userId")({
   loader: async ({ params }) => {
     const response = await fetch(
-      `${BACKEND_BASE_URL}/api/profile/${params.profileId}`,
+      `${BACKEND_BASE_URL}/api/profile/${params.userId}`,
       {
         credentials: "include",
       },
@@ -66,7 +66,12 @@ function RouteComponent() {
         <div style={nameContainer}>
           <HiUsers size={ICON_SIZE} />
           {profile.userId === profile.userRequest ? (
-            <FaRegEdit size={ICON_SIZE} />
+            <Link
+              to="/profile/edit/$userId"
+              params={{ userId: profile.userId }}
+            >
+              <FaRegEdit size={ICON_SIZE} />
+            </Link>
           ) : (
             <FiMessageSquare size={ICON_SIZE} />
           )}
@@ -103,6 +108,7 @@ function RouteComponent() {
           <FaTiktok size={ICON_SIZE} />
         </div>
       </div>
+      <Outlet />
     </div>
   );
 }
