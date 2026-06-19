@@ -12,12 +12,12 @@ import ProfilePicture from "@/components/ProfilePicture";
 import InterestSelection from "@/components/InterestSelection";
 import ColorSelection from "@/components/ColorSelection";
 import { BACKEND_BASE_URL } from "@/utils/variables";
+import profileLoader from "@/lib/profileLoader";
 export const Route = createFileRoute("/profile/edit/$userId")({
+  loader: profileLoader,
   component: RouteComponent,
 });
-//TODO: compare the current(login) user to the user of the profile, if the users are
-//the same change the message icon to an edit icon. This way the user can edit his/her
-//own profile
+
 type UserInfo = {
   firstName: string;
   lastName: string;
@@ -28,6 +28,11 @@ type UserInfo = {
   color: string;
 };
 function RouteComponent() {
+  // const profile = Route.useLoaderData();
+  // const profileImageUrl = profile.image
+  //     ? `${BACKEND_BASE_URL}${profile.image.path}`
+  //     : null;
+  // const interests = profile.interests ?? [];
   const [page, setPage] = useState(1);
   const [userInfo, setUserInfo] = useState<UserInfo>({
     firstName: "brandon",

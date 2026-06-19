@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
+//FIXME: replace with the signed-in user's id
+const temp = "3b054c16-0e8d-4193-86a6-a6d0f3d2c28d";
 export default function Navbar() {
   return (
     <div style={NavbarStyle}>
@@ -9,14 +11,15 @@ export default function Navbar() {
       <Link to="/about" style={NavbarTextStyle}>
         About
       </Link>
-      <Link to="/profile/profile">Profile</Link>
+      <Link to="/profile/$userId" params={{ userId: temp }}>
+        Profile
+      </Link>
       <Link to="/login" style={NavbarTextStyle}>
         Login
       </Link>
     </div>
   );
 }
-//FIXME: Profile Link
 const NavbarStyle: CSSProperties = {
   height: "50px",
   width: "100%",
