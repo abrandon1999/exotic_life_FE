@@ -8,7 +8,7 @@ import { FaTiktok } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi2";
 import { FiMessageSquare } from "react-icons/fi";
 import { BACKEND_BASE_URL } from "@/utils/variables";
-
+import { FaRegEdit } from "react-icons/fa";
 type ProfileImage = {
   id: string;
   userId: string;
@@ -29,6 +29,7 @@ type Profile = {
   userId: string;
   imageId: string | null;
   image: ProfileImage | null;
+  userRequest: string | null | undefined;
 };
 
 export const Route = createFileRoute("/profile/$profileId")({
@@ -64,7 +65,11 @@ function RouteComponent() {
       <div style={profileContainer}>
         <div style={nameContainer}>
           <HiUsers size={ICON_SIZE} />
-          <FiMessageSquare size={ICON_SIZE} />
+          {profile.userId === profile.userRequest ? (
+            <FaRegEdit size={ICON_SIZE} />
+          ) : (
+            <FiMessageSquare size={ICON_SIZE} />
+          )}
         </div>
         <div style={profileImageContainer}>
           {profileImageUrl ? (
