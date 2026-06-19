@@ -15,7 +15,9 @@ import { BACKEND_BASE_URL } from "@/utils/variables";
 export const Route = createFileRoute("/profile/profile")({
   component: RouteComponent,
 });
-
+//TODO: compare the current(login) user to the user of the profile, if the users are
+//the same change the message icon to an edit icon. This way the user can edit his/her
+//own profile
 type UserInfo = {
   firstName: string;
   lastName: string;

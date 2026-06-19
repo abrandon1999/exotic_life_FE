@@ -33,7 +33,12 @@ type Profile = {
 
 export const Route = createFileRoute("/profile/$profileId")({
   loader: async ({ params }) => {
-    const response = await fetch(`${BACKEND_BASE_URL}/api/profile/${params.profileId}`);
+    const response = await fetch(
+      `${BACKEND_BASE_URL}/api/profile/${params.profileId}`,
+      {
+        credentials: "include",
+      },
+    );
     if (!response.ok) {
       throw new Error(`Profile request failed: ${response.status}`);
     }
@@ -100,7 +105,8 @@ function RouteComponent() {
 function assertProfile(value: unknown): asserts value is Profile {
   if (!isObject(value)) throw new Error("Invalid profile response");
   if (typeof value.id !== "string") throw new Error("Invalid profile id");
-  if (typeof value.userId !== "string") throw new Error("Invalid profile userId");
+  if (typeof value.userId !== "string")
+    throw new Error("Invalid profile userId");
   if (!isNullableString(value.firstName)) throw new Error("Invalid firstName");
   if (!isNullableString(value.lastName)) throw new Error("Invalid lastName");
   if (!isNullableString(value.gender)) throw new Error("Invalid gender");
