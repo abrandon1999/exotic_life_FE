@@ -35,6 +35,7 @@ export default async function profileLoader({
     `${BACKEND_BASE_URL}/api/profile/${params.userId}`,
     {
       credentials: "include",
+      cache: "no-store",
     },
   );
   if (!response.ok) {

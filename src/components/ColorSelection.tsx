@@ -68,7 +68,7 @@ export default function ColorSelection({ value, onColorChange }: Props) {
           <span className={styles.value}>{selectedColor}</span>
         </div>
       </div>
-      <input type="hidden" name="favoriteColor" value={selectedColor} />
+      <input type="hidden" name="color" value={selectedColor} />
     </div>
   );
 }

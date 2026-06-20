@@ -3,12 +3,12 @@ import styles from "./InterestSelection.module.css";
 const interests = ["People", "Places", "Food", "Animals", "Cars", "Plants"];
 
 interface Props {
-  onInterestChange: (interest: string) => void;
   selectedInterests: string[];
+  onInterestChange?: (interest: string) => void;
 }
 export default function InterestSelection({
-  onInterestChange,
   selectedInterests,
+  onInterestChange,
 }: Props) {
   return (
     <div className={styles.container}>
@@ -22,7 +22,7 @@ export default function InterestSelection({
               value={interest}
               checked={selectedInterests.includes(interest)}
               onChange={() => {
-                onInterestChange(interest);
+                onInterestChange?.(interest);
               }}
             />
             <span>{interest}</span>
