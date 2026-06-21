@@ -93,6 +93,7 @@ function RouteComponent() {
               type="text"
               style={inputStyle}
               value={"tempmail@yahoo.com"}
+              disabled
             />
           </div>
           <div style={inputGroup}>

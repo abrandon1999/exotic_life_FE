@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
+import { MdOutlineAddBox } from "react-icons/md";
 //FIXME: replace with the signed-in user's id
 const temp = "3b054c16-0e8d-4193-86a6-a6d0f3d2c28d";
 export default function Navbar() {
@@ -17,9 +18,13 @@ export default function Navbar() {
       <Link to="/login" style={NavbarTextStyle}>
         Login
       </Link>
+      <Link to="/post">
+        <MdOutlineAddBox size={ICON_SIZE} />
+      </Link>
     </div>
   );
 }
+const ICON_SIZE = "30";
 const NavbarStyle: CSSProperties = {
   height: "50px",
   width: "100%",
