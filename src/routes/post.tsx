@@ -1,13 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { type CSSProperties, useState } from "react";
+import { type CSSProperties, useEffect, useMemo, useState } from "react";
 
 export const Route = createFileRoute("/post")({
   component: RouteComponent,
 });
 
-function RouteComponent() {
-  const [postImage, setPostImage] = useState<File | null>(null);
+const MAX_IMAGES = 4;
 
+function RouteComponent() {
+  const [postImages, setPostImages] = useState<File[]>([]);
+  const imagePreviews = useMemo(
+    () =>
+      postImages.map((image) => ({
+        file: image,
+        url: URL.createObjectURL(image),
+      })),
+    [postImages],
+  );
+
+  useEffect(() => {
+    return () => {
+      imagePreviews.forEach((preview) => {
+        URL.revokeObjectURL(preview.url);
+      });
+    };
+  }, [imagePreviews]);
+  //Each time you call ```createObjectURL()```, a new object URL is
+  //created, even if you've already created one for the same object.
+  //Each of these must be released by calling ```URL.revokeObjectURL()```
+  //when you no longer need them.
+
+  //Browsers will release object URLs automatically when the document is
+  //unloaded; however, for optimal performance and memory usage, if there
+  //are safe times when you can explicitly unload them, you should do so.
   return (
     <div style={container}>
       <form action={handleSubmit} style={formStyle}>
@@ -17,25 +42,65 @@ function RouteComponent() {
           </label>
           <input
             type="file"
-            name="image"
+            name="images"
             id="post-image"
             style={inputStyle}
             accept="image/*"
+            multiple
             onChange={(event) => {
-              const file = event.target.files?.[0];
-              if (file) setPostImage(file);
+              const selectedImages = Array.from(event.target.files ?? []);
+              setPostImages((currentImages) => {
+                const imageMap = new Map(
+                  currentImages.map((image) => [getImageKey(image), image]),
+                );
+
+                selectedImages.forEach((image) => {
+                  const imageKey = getImageKey(image);
+                  if (imageMap.has(imageKey) || imageMap.size < MAX_IMAGES) {
+                    imageMap.set(imageKey, image);
+                  }
+                });
+
+                return Array.from(imageMap.values());
+              });
+              event.target.value = "";
             }}
           />
         </div>
-        {postImage ? <p style={fileNameStyle}>{postImage.name}</p> : null}
+        {postImages.length > 0 ? (
+          <ul style={imageGridStyle}>
+            {imagePreviews.map((preview) => (
+              <li
+                key={`${preview.file.name}-${preview.file.lastModified}`}
+                style={imageItemStyle}
+              >
+                <img
+                  src={preview.url}
+                  alt={preview.file.name}
+                  style={imagePreviewStyle}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </form>
     </div>
   );
 
   function handleSubmit(formData: FormData) {
-    if (postImage) formData.set("image", postImage);
-    console.log(Object.fromEntries(formData));
+    formData.delete("images");
+    postImages.forEach((image) => {
+      formData.append("images", image);
+    });
+
+    console.log({
+      images: postImages,
+    });
   }
+}
+
+function getImageKey(image: File) {
+  return `${image.name}-${image.size}-${image.lastModified}`;
 }
 
 const container: CSSProperties = {
@@ -71,8 +136,26 @@ const inputStyle: CSSProperties = {
   color: "rgba(243,244,246,1)",
 };
 
-const fileNameStyle: CSSProperties = {
-  color: "rgba(243,244,246,1)",
-  fontSize: "0.875rem",
-  lineHeight: "1.25rem",
+const imageGridStyle: CSSProperties = {
+  display: "grid",
+  gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+  gap: "0.75rem",
+  listStyle: "none",
+  margin: 0,
+  padding: 0,
+};
+
+const imageItemStyle: CSSProperties = {
+  aspectRatio: "1 / 1",
+  overflow: "hidden",
+  borderRadius: "0.375rem",
+  border: "1px solid rgba(55,65,81,1)",
+  backgroundColor: "rgba(17,24,39,1)",
+};
+
+const imagePreviewStyle: CSSProperties = {
+  width: "100%",
+  height: "100%",
+  display: "block",
+  objectFit: "cover",
 };
