@@ -121,13 +121,17 @@ function RouteComponent() {
   );
 
   function handleSubmit(formData: FormData) {
+    formData.set("title", postInfo.title);
+    formData.set("description", postInfo.description);
     formData.delete("images");
     postImages.forEach((image) => {
       formData.append("images", image);
     });
 
     console.log({
-      images: postImages,
+      title: formData.get("title"),
+      description: formData.get("description"),
+      images: formData.getAll("images"),
     });
   }
 }
