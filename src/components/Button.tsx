@@ -1,17 +1,18 @@
-import styles from "./ProfileButton.module.css";
+import styles from "./Button.module.css";
 
 interface Props {
   onHandleSubmit?: () => void;
+  label: string;
 }
 
-export default function ProfileButton({ onHandleSubmit }: Props) {
+export default function ProfileButton({ onHandleSubmit, label }: Props) {
   return (
     <button
       type={onHandleSubmit ? "button" : "submit"}
       className={styles.buttonGradientBorder}
       onClick={onHandleSubmit}
     >
-      Done
+      {label}
     </button>
   );
 }

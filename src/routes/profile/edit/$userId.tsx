@@ -15,7 +15,7 @@ import { BACKEND_BASE_URL } from "@/utils/variables";
 import profileLoader from "@/lib/profileLoader";
 import ProfileImage from "@/components/ProfileImage";
 import styles from "../../../components/GenderRadio.module.css";
-import ProfileButton from "@/components/ProfileButton";
+import Button from "@/components/Button";
 export const Route = createFileRoute("/profile/edit/$userId")({
   loader: profileLoader,
   shouldReload: true,
@@ -139,7 +139,7 @@ function RouteComponent() {
         </div>
         <div id="page3" style={{ display: `${page === 3 ? "block" : "none"}` }}>
           <div style={buttonContainerStyle}>
-            <ProfileButton />
+            <Button label="Finish" />
           </div>
         </div>
       </form>
