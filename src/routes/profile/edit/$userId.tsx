@@ -16,6 +16,7 @@ import profileLoader from "@/lib/profileLoader";
 import ProfileImage from "@/components/ProfileImage";
 import styles from "../../../components/GenderRadio.module.css";
 import Button from "@/components/Button";
+import { buttonContainerStyle } from "@/utils/styles";
 export const Route = createFileRoute("/profile/edit/$userId")({
   loader: profileLoader,
   shouldReload: true,
@@ -214,11 +215,4 @@ const inputStyle: CSSProperties = {
   backgroundColor: "rgba(17,24,39,1)",
   padding: "0.75rem 1rem",
   color: "rgba(243,244,246,1)",
-};
-const buttonContainerStyle: CSSProperties = {
-  width: "100%",
-  height: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
 };

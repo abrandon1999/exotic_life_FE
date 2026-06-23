@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
-
+import Button from "@/components/Button";
+import { buttonContainerStyle } from "@/utils/styles";
 export const Route = createFileRoute("/post")({
   component: RouteComponent,
 });
@@ -8,6 +9,7 @@ export const Route = createFileRoute("/post")({
 const MAX_IMAGES = 4;
 
 function RouteComponent() {
+  const [postInfo, setPostInfo] = useState({ title: "", description: "" });
   const [postImages, setPostImages] = useState<File[]>([]);
   const imagePreviews = useMemo(
     () =>
@@ -36,6 +38,34 @@ function RouteComponent() {
   return (
     <div style={container}>
       <form action={handleSubmit} style={formStyle}>
+        <div style={inputGroup}>
+          <label htmlFor="Title" style={labelStyle}>
+            {"Title"}
+          </label>
+          <input
+            type="text"
+            style={inputStyle}
+            name="title"
+            value={postInfo.title}
+            onChange={(event) => {
+              setPostInfo({ ...postInfo, title: event.target.value });
+            }}
+          />
+        </div>
+        <div style={inputGroup}>
+          <label htmlFor="description" style={labelStyle}>
+            {"Description"}
+          </label>
+          <input
+            type="text"
+            style={inputStyle}
+            name="description"
+            value={postInfo.description}
+            onChange={(event) => {
+              setPostInfo({ ...postInfo, description: event.target.value });
+            }}
+          />
+        </div>
         <div style={inputGroup}>
           <label htmlFor="post-image" style={labelStyle}>
             Photo
@@ -83,6 +113,9 @@ function RouteComponent() {
             ))}
           </ul>
         ) : null}
+        <div style={buttonContainerStyle}>
+          <Button label="Post" />
+        </div>
       </form>
     </div>
   );
