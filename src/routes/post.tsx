@@ -3,8 +3,13 @@ import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import Button from "@/components/Button";
 import { buttonContainerStyle } from "@/utils/styles";
 import { BACKEND_BASE_URL } from "@/utils/variables";
+
+type AuthUser = {
+  userId: string;
+};
+
 export const Route = createFileRoute("/post")({
-  beforeLoad: async () => {
+  beforeLoad: async (): Promise<AuthUser> => {
     const response = await fetch(`${BACKEND_BASE_URL}/api/auth/me`, {
       credentials: "include",
       cache: "no-store",
@@ -13,6 +18,10 @@ export const Route = createFileRoute("/post")({
     if (!response.ok) {
       throw redirect({ to: "/login" });
     }
+
+    const authUser = await response.json();
+    assertAuthUser(authUser);
+    return authUser;
   },
   component: RouteComponent,
 });
@@ -20,6 +29,7 @@ export const Route = createFileRoute("/post")({
 const MAX_IMAGES = 4;
 
 function RouteComponent() {
+  const { userId } = Route.useRouteContext();
   const [postInfo, setPostInfo] = useState({ title: "", description: "" });
   const [postImages, setPostImages] = useState<File[]>([]);
   const imagePreviews = useMemo(
@@ -140,10 +150,22 @@ function RouteComponent() {
     });
 
     console.log({
+      userId,
       title: formData.get("title"),
       description: formData.get("description"),
       images: formData.getAll("images"),
     });
+  }
+}
+
+function assertAuthUser(value: unknown): asserts value is AuthUser {
+  if (
+    typeof value !== "object" ||
+    value === null ||
+    !("userId" in value) ||
+    typeof value.userId !== "string"
+  ) {
+    throw new Error("Invalid auth user response");
   }
 }
 
