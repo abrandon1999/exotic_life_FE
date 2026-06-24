@@ -1,8 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import Button from "@/components/Button";
 import { buttonContainerStyle } from "@/utils/styles";
+import { BACKEND_BASE_URL } from "@/utils/variables";
 export const Route = createFileRoute("/post")({
+  beforeLoad: async () => {
+    const response = await fetch(`${BACKEND_BASE_URL}/api/auth/me`, {
+      credentials: "include",
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw redirect({ to: "/login" });
+    }
+  },
   component: RouteComponent,
 });
 
