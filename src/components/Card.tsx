@@ -3,15 +3,19 @@ import CardHeader from "./CardHeader";
 import CardImage from "./CardImage";
 import CardInfo from "./CardInfo";
 import CardFooter from "./CardFooter";
-
+import { type Post } from "@/lib/postLoader";
 import { colors } from "@/utils/colors";
 import CardDivider from "./CardDivider";
-export default function Card() {
+interface Props {
+  post: Post;
+}
+export default function Card({ post }: Props) {
+  const images = post.images;
   return (
     <div style={container}>
       <CardHeader />
       <CardDivider />
-      <CardImage />
+      <CardImage images={images} />
       <CardInfo />
       <CardDivider />
       <CardFooter />

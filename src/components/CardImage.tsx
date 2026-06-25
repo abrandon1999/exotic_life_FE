@@ -1,6 +1,10 @@
 import type { CSSProperties } from "react";
-
-export default function CardImage() {
+import type { PostImage } from "@/lib/postLoader";
+interface Props {
+  images: PostImage[];
+}
+export default function CardImage({ images }: Props) {
+  console.log(images);
   return (
     <div style={imageStyle}>
       <p style={{ color: "#000", fontSize: "3rem" }}>Image</p>

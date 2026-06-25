@@ -9,11 +9,12 @@ export const Route = createFileRoute("/")({
 
 function RouteComponent() {
   const posts = Route.useLoaderData();
-  console.log(posts);
 
   return (
     <div>
-      <Card />
+      {posts.map((post) => (
+        <Card key={post.id} post={post} />
+      ))}
     </div>
   );
 }

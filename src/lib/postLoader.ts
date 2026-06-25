@@ -1,5 +1,5 @@
 import { BACKEND_BASE_URL } from "@/utils/variables";
-type PostImage = {
+export type PostImage = {
   id: string;
   userId: string;
   postId: string | null;
@@ -10,7 +10,7 @@ type PostImage = {
   isProfile: boolean;
 };
 
-type Post = {
+export type Post = {
   id: string;
   title: string;
   description: string | null;
