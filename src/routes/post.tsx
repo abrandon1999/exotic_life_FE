@@ -4,24 +4,28 @@ import Button from "@/components/Button";
 import { buttonContainerStyle } from "@/utils/styles";
 import { BACKEND_BASE_URL } from "@/utils/variables";
 
-type AuthUser = {
-  userId: string;
-};
+// type AuthUser = {
+//   userId: string;
+// };
 
 export const Route = createFileRoute("/post")({
-  beforeLoad: async (): Promise<AuthUser> => {
+  beforeLoad: async () => {
     const response = await fetch(`${BACKEND_BASE_URL}/api/auth/me`, {
       credentials: "include",
       cache: "no-store",
     });
+    //Before the component is loaded, the route must check if the user has
+    //a valid token. If the user doesn't have a valid token the user should
+    //be redirected to the login page.
 
     if (!response.ok) {
       throw redirect({ to: "/login" });
     }
-
-    const authUser = await response.json();
-    assertAuthUser(authUser);
-    return authUser;
+    //If the user does have a valid token, the route component can
+    //continue loading
+    // const authUser = await response.json();
+    // assertAuthUser(authUser);
+    // return authUser; // Promise<AuthUser>
   },
   component: RouteComponent,
 });
@@ -29,7 +33,7 @@ export const Route = createFileRoute("/post")({
 const MAX_IMAGES = 4;
 
 function RouteComponent() {
-  const { userId } = Route.useRouteContext();
+  //const { userId } = Route.useRouteContext();
   const [postInfo, setPostInfo] = useState({
     title: "vacation",
     description: "fun time at the beach",
@@ -145,9 +149,12 @@ function RouteComponent() {
   );
 
   async function handleSubmit(formData: FormData) {
+    //TODO: If is possible that the token could expires before the
+    //handleSubmit is executed. If that happen the user should be
+    //redirected to the login page
+
     formData.set("title", postInfo.title);
     formData.set("description", postInfo.description);
-    formData.set("userId", userId);
     formData.delete("images");
     postImages.forEach((image) => {
       formData.append("images", image);
@@ -164,7 +171,6 @@ function RouteComponent() {
     }
 
     console.log("Post created", {
-      userId,
       title: formData.get("title"),
       description: formData.get("description"),
       images: formData.getAll("images"),
@@ -172,21 +178,22 @@ function RouteComponent() {
   }
 }
 
-function assertAuthUser(value: unknown): asserts value is AuthUser {
-  if (
-    typeof value !== "object" ||
-    value === null ||
-    !("userId" in value) ||
-    typeof value.userId !== "string"
-  ) {
-    throw new Error("Invalid auth user response");
-  }
-}
+// function assertAuthUser(value: unknown): asserts value is AuthUser {
+//   if (
+//     typeof value !== "object" ||
+//     value === null ||
+//     !("userId" in value) ||
+//     typeof value.userId !== "string"
+//   ) {
+//     throw new Error("Invalid auth user response");
+//   }
+// }
 
 function getImageKey(image: File) {
   return `${image.name}-${image.size}-${image.lastModified}`;
 }
 
+//---------------styles------------------------------------
 const container: CSSProperties = {
   padding: "1rem",
   minHeight: "100vh",
