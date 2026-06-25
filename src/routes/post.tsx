@@ -30,7 +30,10 @@ const MAX_IMAGES = 4;
 
 function RouteComponent() {
   const { userId } = Route.useRouteContext();
-  const [postInfo, setPostInfo] = useState({ title: "", description: "" });
+  const [postInfo, setPostInfo] = useState({
+    title: "vacation",
+    description: "fun time at the beach",
+  });
   const [postImages, setPostImages] = useState<File[]>([]);
   const imagePreviews = useMemo(
     () =>
@@ -141,15 +144,26 @@ function RouteComponent() {
     </div>
   );
 
-  function handleSubmit(formData: FormData) {
+  async function handleSubmit(formData: FormData) {
     formData.set("title", postInfo.title);
     formData.set("description", postInfo.description);
+    formData.set("userId", userId);
     formData.delete("images");
     postImages.forEach((image) => {
       formData.append("images", image);
     });
 
-    console.log({
+    const response = await fetch(`${BACKEND_BASE_URL}/api/post`, {
+      method: "POST",
+      body: formData,
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    console.log("Post created", {
       userId,
       title: formData.get("title"),
       description: formData.get("description"),
