@@ -149,7 +149,7 @@ function RouteComponent() {
   );
 
   async function handleSubmit(formData: FormData) {
-    //TODO: If is possible that the token could expires before the
+    //TODO: It is possible that the token could expires before the
     //handleSubmit is executed. If that happen the user should be
     //redirected to the login page
 

@@ -18,8 +18,10 @@ export default function Card({ post }: Props) {
   const description = post.description;
   const userId = post.userId;
   const userName = post.user.name;
-  const profileImage = post.user.profile.image.path;
-  console.log(post);
+  const profileImage = post.user.profile.image
+    ? post.user.profile.image.path
+    : null;
+
   return (
     <div style={container}>
       <CardHeader date={date} />

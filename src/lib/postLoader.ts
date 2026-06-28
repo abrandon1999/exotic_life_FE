@@ -16,7 +16,7 @@ type Image = {
   path: string;
 };
 type Profile = {
-  image: Image;
+  image: Image | null;
 };
 type User = {
   id: string;

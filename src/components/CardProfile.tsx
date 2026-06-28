@@ -4,12 +4,21 @@ import { BACKEND_BASE_URL } from "@/utils/variables";
 interface Props {
   userId: string;
   name: string;
-  image: string;
+  image: string | null;
 }
 export default function CardProfile({ userId, name, image }: Props) {
   return (
     <div style={profileContainer}>
-      <img src={`${BACKEND_BASE_URL}${image}`} alt="" style={profilePicture} />
+      {image ? (
+        <img
+          src={`${BACKEND_BASE_URL}${image}`}
+          alt=""
+          style={profilePicture}
+        />
+      ) : (
+        <div style={profilePicture}></div>
+      )}
+
       <Link
         to="/profile/$userId"
         params={{ userId }}

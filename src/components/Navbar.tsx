@@ -1,9 +1,10 @@
 import type { CSSProperties } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { MdOutlineAddBox } from "react-icons/md";
-//FIXME: replace with the signed-in user's id
-const temp = "3b054c16-0e8d-4193-86a6-a6d0f3d2c28d";
+import { BACKEND_BASE_URL } from "@/utils/variables";
 export default function Navbar() {
+  const navigate = useNavigate();
+
   return (
     <div style={NavbarStyle}>
       <Link to="/" style={NavbarTextStyle}>
@@ -12,9 +13,7 @@ export default function Navbar() {
       <Link to="/about" style={NavbarTextStyle}>
         About
       </Link>
-      <Link to="/profile/$userId" params={{ userId: temp }}>
-        Profile
-      </Link>
+      <button onClick={() => handleProfile(navigate)}>Profile</button>
       <Link to="/login" style={NavbarTextStyle}>
         Login
       </Link>
@@ -23,6 +22,20 @@ export default function Navbar() {
       </Link>
     </div>
   );
+}
+type Navigate = ReturnType<typeof useNavigate>;
+
+async function handleProfile(navigate: Navigate) {
+  const response = await fetch(`${BACKEND_BASE_URL}/api/auth/me`, {
+    credentials: "include",
+    cache: "no-store",
+  });
+  if (!response.ok) {
+    navigate({ to: "/login" });
+    return;
+  }
+  const result = (await response.json()) as { userId: string };
+  navigate({ to: "/profile/$userId", params: { userId: result.userId } });
 }
 const ICON_SIZE = "30";
 const NavbarStyle: CSSProperties = {
