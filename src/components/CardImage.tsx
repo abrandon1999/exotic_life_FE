@@ -12,6 +12,9 @@ interface Props {
 export default function CardImage({ images }: Props) {
   console.log(images);
   const [imageIndex, setImageIndex] = useState(0);
+  const [hoveredArrow, setHoveredArrow] = useState<"prev" | "next" | null>(
+    null,
+  );
   if (images.length === 0) return null;
 
   return (
@@ -26,6 +29,7 @@ export default function CardImage({ images }: Props) {
         >
           {images.map((image) => (
             <img
+              key={image.id}
               src={`${BACKEND_BASE_URL}${image.path}`}
               alt={"user images"}
               style={imageStyle}
@@ -33,14 +37,30 @@ export default function CardImage({ images }: Props) {
           ))}
         </div>
         <button
-          style={{ ...imageSliderButton, left: 0 }}
+          style={{
+            ...imageSliderButton,
+            ...(hoveredArrow === "prev" ? imageSliderButtonHover : {}),
+            left: 0,
+          }}
           onClick={showPrevImage}
+          onMouseEnter={() => setHoveredArrow("prev")}
+          onMouseLeave={() => setHoveredArrow(null)}
+          onFocus={() => setHoveredArrow("prev")}
+          onBlur={() => setHoveredArrow(null)}
         >
           <FaArrowLeft size={ICON_SIZE} />
         </button>
         <button
-          style={{ ...imageSliderButton, right: 0 }}
+          style={{
+            ...imageSliderButton,
+            ...(hoveredArrow === "next" ? imageSliderButtonHover : {}),
+            right: 0,
+          }}
           onClick={showNextImage}
+          onMouseEnter={() => setHoveredArrow("next")}
+          onMouseLeave={() => setHoveredArrow(null)}
+          onFocus={() => setHoveredArrow("next")}
+          onBlur={() => setHoveredArrow(null)}
         >
           <FaArrowRight size={ICON_SIZE} />
         </button>
@@ -98,7 +118,11 @@ const imageSliderButton: CSSProperties = {
   bottom: 0,
   padding: "1rem",
   cursor: "pointer",
-  transition: "background-color 400ms ease-in-out",
+  transition: "background-color 500ms ease-in-out",
+  backgroundColor: "rgba(0, 0, 0, 0)",
+};
+const imageSliderButtonHover: CSSProperties = {
+  backgroundColor: "rgba(0, 0, 0, 0.18)",
 };
 const imageSliderDotContainer: CSSProperties = {
   display: "flex",
