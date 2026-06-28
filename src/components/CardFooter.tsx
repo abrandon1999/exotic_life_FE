@@ -1,13 +1,9 @@
 import type { CSSProperties } from "react";
-import CardProfile from "./CardProfile";
-import CardIcon from "./CardIcon";
-export default function CardFooter() {
-  return (
-    <div style={footerStyle}>
-      <CardProfile />
-      <CardIcon />
-    </div>
-  );
+interface Props {
+  children: React.ReactNode;
+}
+export default function CardFooter({ children }: Props) {
+  return <div style={footerStyle}>{children}</div>;
 }
 
 const footerStyle: CSSProperties = {

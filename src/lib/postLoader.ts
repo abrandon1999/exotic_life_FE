@@ -9,7 +9,20 @@ export type PostImage = {
   size: number;
   isProfile: boolean;
 };
-
+type Image = {
+  id: string;
+  userId: string;
+  filename: string;
+  path: string;
+};
+type Profile = {
+  image: Image;
+};
+type User = {
+  id: string;
+  name: string;
+  profile: Profile;
+};
 export type Post = {
   id: string;
   title: string;
@@ -18,6 +31,7 @@ export type Post = {
   images: PostImage[];
   createdAt: string;
   updatedAt: string;
+  user: User;
 };
 export default async function postLoader(): Promise<Post[]> {
   const response = await fetch(`${BACKEND_BASE_URL}/api/post`, {

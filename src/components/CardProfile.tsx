@@ -1,13 +1,21 @@
 import type { CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
-//FIXME:
-const temp = "3b054c16-0e8d-4193-86a6-a6d0f3d2c28d";
-export default function CardProfile() {
+import { BACKEND_BASE_URL } from "@/utils/variables";
+interface Props {
+  userId: string;
+  name: string;
+  image: string;
+}
+export default function CardProfile({ userId, name, image }: Props) {
   return (
     <div style={profileContainer}>
-      <div style={profilePicture}></div>
-      <Link to="/profile/$userId" params={{ userId: temp }}>
-        Your Name Here
+      <img src={`${BACKEND_BASE_URL}${image}`} alt="" style={profilePicture} />
+      <Link
+        to="/profile/$userId"
+        params={{ userId }}
+        style={{ color: "white" }}
+      >
+        {name}
       </Link>
     </div>
   );

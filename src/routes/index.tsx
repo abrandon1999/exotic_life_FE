@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
 
 function RouteComponent() {
   const posts = Route.useLoaderData();
-
+  if (posts.length === 0) return <h1>No Post</h1>;
   return (
     <div>
       {posts.map((post) => (

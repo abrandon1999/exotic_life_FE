@@ -4,11 +4,13 @@ import { FaGithub, FaGoogle } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import styles from "./-login.module.css";
 import { BACKEND_BASE_URL } from "@/utils/variables";
+import { useNavigate } from "@tanstack/react-router";
 export const Route = createFileRoute("/register")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
   return (
     <div style={container}>
       <div className={styles.formContainer}>
@@ -16,15 +18,25 @@ function RouteComponent() {
         <form action={handleRegisterForm} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor="name">Name</label>
-            <input type="text" name="name" id="name" />
+            <input type="text" name="name" id="name" defaultValue={"Brandon"} />
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              defaultValue={"abrandon1999@yahoo.com"}
+            />
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" />
+            <input
+              type="password"
+              name="password"
+              id="password"
+              defaultValue={"queen1205"}
+            />
           </div>
           <button type="submit" className={styles.sign}>
             Register
@@ -49,31 +61,34 @@ function RouteComponent() {
       </div>
     </div>
   );
-}
-async function handleRegisterForm(formData: FormData) {
-  const name = formData.get("name") as string;
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-  const registerFormObj = { name, email, password };
+  async function handleRegisterForm(formData: FormData) {
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const registerFormObj = { name, email, password };
 
-  //TODO: configure fetch the send registerFormObj to backend
-  try {
-    const response = await fetch(`${BACKEND_BASE_URL}/api/register`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify(registerFormObj),
-    });
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+    //TODO: configure fetch the send registerFormObj to backend
+    try {
+      const response = await fetch(`${BACKEND_BASE_URL}/api/register`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(registerFormObj),
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      navigate({ to: "/" });
+      //const registerResult = await response.json();
+      //const token = response.headers.get('x-auth-token')
+    } catch (error) {
+      console.log(error);
     }
-    //const registerResult = await response.json();
-    //const token = response.headers.get('x-auth-token')
-  } catch (error) {
-    console.log(error);
   }
 }
+
 const ICON_SIZE = "30";
 const container: CSSProperties = {
   display: "flex",
