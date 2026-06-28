@@ -11,12 +11,16 @@ interface Props {
 }
 export default function Card({ post }: Props) {
   const images = post.images;
+  const date = formatPostDate(post.createdAt);
+  const title = post.title;
+  const description = post.description;
+  console.log(post);
   return (
     <div style={container}>
-      <CardHeader />
+      <CardHeader date={date} />
       <CardDivider />
       <CardImage images={images} />
-      <CardInfo />
+      <CardInfo title={title} description={description} />
       <CardDivider />
       <CardFooter />
     </div>
@@ -27,3 +31,13 @@ const container: CSSProperties = {
   backgroundColor: colors.primary,
   padding: "20px",
 };
+
+function formatPostDate(date: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(new Date(date));
+}

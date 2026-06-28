@@ -1,9 +1,12 @@
 import type { CSSProperties } from "react";
 import { FaHeart } from "react-icons/fa";
-export default function CardHeader() {
+interface Props {
+  date: string;
+}
+export default function CardHeader({ date }: Props) {
   return (
     <div style={headerStyle}>
-      <p>January 1 1971</p>
+      <p>{date}</p>
       <FaHeart />
     </div>
   );

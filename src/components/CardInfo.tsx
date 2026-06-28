@@ -1,13 +1,15 @@
 import type { CSSProperties } from "react";
 import { FiChevronsRight } from "react-icons/fi";
 import { colors } from "@/utils/colors";
-export default function CardInfo() {
+interface Props {
+  title: string;
+  description: string | null;
+}
+export default function CardInfo({ title, description }: Props) {
   return (
     <div style={infoContainer}>
-      <p style={titleStyle}>Day at the Beach</p>
-      <p style={descriptionStyle}>
-        This is me and my friend having a great time on vacation...
-      </p>
+      <p style={titleStyle}>{title}</p>
+      <p style={descriptionStyle}>{description}</p>
       <div style={buttonContainer}>
         <p style={buttonText}>Read More</p>
         <FiChevronsRight />
