@@ -11,7 +11,6 @@ interface Props {
   images: PostImage[];
 }
 export default function CardImage({ images }: Props) {
-  console.log(images);
   const [imageIndex, setImageIndex] = useState(0);
   if (images.length === 0) return null;
 
@@ -42,10 +41,7 @@ export default function CardImage({ images }: Props) {
           }}
           onClick={showPrevImage}
         >
-          <FaArrowLeft
-            size={ICON_SIZE}
-            className={styles.arrowIcon}
-          />
+          <FaArrowLeft size={ICON_SIZE} className={styles.arrowIcon} />
         </button>
         <button
           className={styles.arrowButton}
@@ -55,10 +51,7 @@ export default function CardImage({ images }: Props) {
           }}
           onClick={showNextImage}
         >
-          <FaArrowRight
-            size={ICON_SIZE}
-            className={styles.arrowIcon}
-          />
+          <FaArrowRight size={ICON_SIZE} className={styles.arrowIcon} />
         </button>
       </div>
       <div style={imageSliderDotContainer}>
