@@ -1,0 +1,30 @@
+.arrowButton {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 500ms ease-in-out;
+}
+
+.arrowButton:hover,
+.arrowButton:focus-visible {
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+.arrowIcon {
+  display: block;
+  transform-origin: center;
+}
+
+.arrowButton:hover .arrowIcon,
+.arrowButton:focus-visible .arrowIcon {
+  animation: arrowSquish 650ms ease-in-out infinite;
+}
+
+@keyframes arrowSquish {
+  0%,
+  100% {
+    transform: scaleX(1) scaleY(1);
+  }
+
+  50% {
+    transform: scaleX(0.78) scaleY(1.14);
+  }
+}

@@ -6,15 +6,13 @@ import { FaArrowRight } from "react-icons/fa";
 import { FaRegCircle } from "react-icons/fa";
 import { FaDotCircle } from "react-icons/fa";
 import { useState } from "react";
+import styles from "./CardImage.module.css";
 interface Props {
   images: PostImage[];
 }
 export default function CardImage({ images }: Props) {
   console.log(images);
   const [imageIndex, setImageIndex] = useState(0);
-  const [hoveredArrow, setHoveredArrow] = useState<"prev" | "next" | null>(
-    null,
-  );
   if (images.length === 0) return null;
 
   return (
@@ -37,43 +35,29 @@ export default function CardImage({ images }: Props) {
           ))}
         </div>
         <button
+          className={styles.arrowButton}
           style={{
             ...imageSliderButton,
-            ...(hoveredArrow === "prev" ? imageSliderButtonHover : {}),
             left: 0,
           }}
           onClick={showPrevImage}
-          onMouseEnter={() => setHoveredArrow("prev")}
-          onMouseLeave={() => setHoveredArrow(null)}
-          onFocus={() => setHoveredArrow("prev")}
-          onBlur={() => setHoveredArrow(null)}
         >
           <FaArrowLeft
             size={ICON_SIZE}
-            style={{
-              ...arrowIconStyle,
-              ...(hoveredArrow === "prev" ? arrowIconHoverStyle : {}),
-            }}
+            className={styles.arrowIcon}
           />
         </button>
         <button
+          className={styles.arrowButton}
           style={{
             ...imageSliderButton,
-            ...(hoveredArrow === "next" ? imageSliderButtonHover : {}),
             right: 0,
           }}
           onClick={showNextImage}
-          onMouseEnter={() => setHoveredArrow("next")}
-          onMouseLeave={() => setHoveredArrow(null)}
-          onFocus={() => setHoveredArrow("next")}
-          onBlur={() => setHoveredArrow(null)}
         >
           <FaArrowRight
             size={ICON_SIZE}
-            style={{
-              ...arrowIconStyle,
-              ...(hoveredArrow === "next" ? arrowIconHoverStyle : {}),
-            }}
+            className={styles.arrowIcon}
           />
         </button>
       </div>
@@ -130,19 +114,6 @@ const imageSliderButton: CSSProperties = {
   bottom: 0,
   padding: "1rem",
   cursor: "pointer",
-  transition: "background-color 500ms ease-in-out",
-  backgroundColor: "rgba(0, 0, 0, 0)",
-};
-const imageSliderButtonHover: CSSProperties = {
-  backgroundColor: "rgba(0, 0, 0, 0.18)",
-};
-const arrowIconStyle: CSSProperties = {
-  display: "block",
-  transition: "transform 180ms ease-in-out",
-  transform: "scaleX(1) scaleY(1)",
-};
-const arrowIconHoverStyle: CSSProperties = {
-  transform: "scaleX(0.85) scaleY(1.12)",
 };
 const imageSliderDotContainer: CSSProperties = {
   display: "flex",
