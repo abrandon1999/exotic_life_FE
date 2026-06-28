@@ -48,7 +48,13 @@ export default function CardImage({ images }: Props) {
           onFocus={() => setHoveredArrow("prev")}
           onBlur={() => setHoveredArrow(null)}
         >
-          <FaArrowLeft size={ICON_SIZE} />
+          <FaArrowLeft
+            size={ICON_SIZE}
+            style={{
+              ...arrowIconStyle,
+              ...(hoveredArrow === "prev" ? arrowIconHoverStyle : {}),
+            }}
+          />
         </button>
         <button
           style={{
@@ -62,7 +68,13 @@ export default function CardImage({ images }: Props) {
           onFocus={() => setHoveredArrow("next")}
           onBlur={() => setHoveredArrow(null)}
         >
-          <FaArrowRight size={ICON_SIZE} />
+          <FaArrowRight
+            size={ICON_SIZE}
+            style={{
+              ...arrowIconStyle,
+              ...(hoveredArrow === "next" ? arrowIconHoverStyle : {}),
+            }}
+          />
         </button>
       </div>
       <div style={imageSliderDotContainer}>
@@ -123,6 +135,14 @@ const imageSliderButton: CSSProperties = {
 };
 const imageSliderButtonHover: CSSProperties = {
   backgroundColor: "rgba(0, 0, 0, 0.18)",
+};
+const arrowIconStyle: CSSProperties = {
+  display: "block",
+  transition: "transform 180ms ease-in-out",
+  transform: "scaleX(1) scaleY(1)",
+};
+const arrowIconHoverStyle: CSSProperties = {
+  transform: "scaleX(0.85) scaleY(1.12)",
 };
 const imageSliderDotContainer: CSSProperties = {
   display: "flex",
