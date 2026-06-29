@@ -9,4 +9,5 @@ export default function CardFooter({ children }: Props) {
 const footerStyle: CSSProperties = {
   display: "grid",
   gridTemplateColumns: "3fr 1fr",
+  borderBottom: "100px solid #fff",
 };
