@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { type CSSProperties, useEffect, useMemo, useState } from "react";
 import Button from "@/components/Button";
 import { buttonContainerStyle } from "@/utils/styles";
@@ -34,6 +34,7 @@ const MAX_IMAGES = 4;
 
 function RouteComponent() {
   //const { userId } = Route.useRouteContext();
+  const navigate = useNavigate();
   const [postInfo, setPostInfo] = useState({
     title: "vacation",
     description: "fun time at the beach",
@@ -175,6 +176,8 @@ function RouteComponent() {
       description: formData.get("description"),
       images: formData.getAll("images"),
     });
+
+    navigate({ to: "/" });
   }
 }
 
